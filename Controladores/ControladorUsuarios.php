@@ -313,8 +313,9 @@ class ControladorUsuarios
 
                     $encriptar = $_POST["passwordActual"];
                 }
-                session_start();
+                //session_start();
                 $datos = array(
+                    "id" => $_POST["editarId"],
                     "nombre" => $_POST["editarNombre"],
                     "usuario" => $_POST["editarUsuario"],
                     "password" => $encriptar,

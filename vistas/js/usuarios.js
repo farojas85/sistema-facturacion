@@ -233,6 +233,7 @@ $(document).on("click", ".btnEditarUsuario", function () {
     processData: false,
     dataType: "json",
     success: function (respuesta) {
+      $("#editarId").val(idUsuario);
       $("#editarNombre").val(respuesta["nombre"]);
       $("#editarUsuario").val(respuesta["usuario"]);
       $("#editarPerfil").html(respuesta["perfil"]);
@@ -242,7 +243,7 @@ $(document).on("click", ".btnEditarUsuario", function () {
       $("#passwordActual").val(respuesta["password"]);
       $("#fotoActual").val(respuesta["foto"]);
       $("#editarSucursal").val(respuesta["id_sucursal"]);
-
+      console.log($("#editarId").val());
       if (respuesta["foto"] != "") {
         $(".previsualizar").attr("src", respuesta["foto"]);
       }

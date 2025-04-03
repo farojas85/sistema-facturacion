@@ -113,15 +113,15 @@ use Controladores\ControladorRoles;
                                     <input type="checkbox" data-toggle="toggle" data-on="Activado"
                                         data-off="Desactivado" data-onstyle="primary" data-offstyle="danger" id=""
                                         name="usuarioEstado<?php $value['estado'] ?>" value="<?php $value['estado'] ?>"
-                                        data-size="mini" data-width="110" idUsuario="<?php echo $value['id'] ?>"
-                                        <?php if ($value['estado'] == 0) {
-                                                                                                                            } else { ?>checked <?php } ?>>
+                                        data-size="mini" data-width="110" idUsuario="<?php echo $value['id'] ?>" <?php if ($value['estado'] == 0) {
+                                                } else { ?>checked <?php } ?>>
                                 </div>
                             </td>
 
 
                             <!-- <td><button class="btn btn-success btn-xs">activo</button></td> -->
-                            <td><?php echo date_format(date_create($value['ultimo_login']), 'd/m/Y H:i:s'); ?></td>
+                            <td><?php echo date_format(date_create($value['ultimo_login']), 'd/m/Y H:i:s') ?? ""; ?>
+                            </td>
                             <td>
                                 <div class="btn-group">
 
@@ -189,7 +189,7 @@ use Controladores\ControladorRoles;
 
                             <!-- <td><button class="btn btn-success btn-xs">activo</button></td> -->
                             <!-- <td><?php echo date_format(date_create($value['ultimo_login']), 'd/m/Y H:i:s'); ?></td> -->
-                            <td><?= "" ?? date_format(date_create($value['ultimo_login']), 'd/m/Y H:i:s') ?></td>
+                            <td><?= date_format(date_create($value['ultimo_login']), 'd/m/Y H:i:s') ?? "" ?></td>
                             <td>
                                 <div class="btn-group">
 
@@ -433,6 +433,7 @@ MODAL AGREGAR USUARIO
                     <div class="box-body">
 
                         <div class="col-md-8">
+                            <input type="text" id="editarId" name="editarId" value="" hidden>
                             <!-- ENTRADA PARA EL NOMBRE -->
                             <div class="form-group">
 

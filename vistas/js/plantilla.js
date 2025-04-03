@@ -1,6 +1,6 @@
 document.getElementById("reload-all").style.display = "none";
 $(".reload-all").hide();
-$('input[type=search]').prop('readonly', false);
+$("input[type=search]").prop("readonly", false);
 //Date picker
 $("#fechaResumen").datepicker({
   autoclose: true,
@@ -49,12 +49,11 @@ $(".selectidproducto").select2();
 $(".selectSucursal").select2();
 $(".tipo_pago_detraccion").select2();
 $("#cuentadetraccion").select2({
-  minimumResultsForSearch: Infinity
+  minimumResultsForSearch: Infinity,
 });
 $("#tipocuenta, #monedacuenta, #etipocuenta, #emonedacuenta").select2({
-  minimumResultsForSearch: Infinity
+  minimumResultsForSearch: Infinity,
 });
-
 
 //MENU RÁPIDO
 
@@ -142,11 +141,39 @@ $(".sidebar-menu").tree();
 // });
 
 const input = document.querySelector("#celular");
-window.intlTelInput(input, {
-  initialCountry: "pe",
-  separateDialCode: true,
-  formatAsYouType: false,
-  autoPlaceholder: "polite",
-  onlyCountries: ["pe",  "bo", "cl", "co", "cr", "cu", "do", "ec", "sv", "gt", "hn", "mx", "ni", "pa", "py", "pr", "uy", "ve", "us", "br", "es"],
-  loadUtils: () => import("https://cdn.jsdelivr.net/npm/intl-tel-input@25.3.0/build/js/utils.js"),
-});
+
+if (input) {
+  window.intlTelInput(input, {
+    initialCountry: "pe",
+    separateDialCode: true,
+    formatAsYouType: false,
+    autoPlaceholder: "polite",
+    onlyCountries: [
+      "pe",
+      "bo",
+      "cl",
+      "co",
+      "cr",
+      "cu",
+      "do",
+      "ec",
+      "sv",
+      "gt",
+      "hn",
+      "mx",
+      "ni",
+      "pa",
+      "py",
+      "pr",
+      "uy",
+      "ve",
+      "us",
+      "br",
+      "es",
+    ],
+    loadUtils: () =>
+      import(
+        "https://cdn.jsdelivr.net/npm/intl-tel-input@25.3.0/build/js/utils.js"
+      ),
+  });
+}
