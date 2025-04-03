@@ -3,9 +3,12 @@ session_start();
 
 use Controladores\ControladorEmpresa;
 use Controladores\ControladorUsuarios;
+use Controladores\ControladorRoles;
 use Controladores\ControladorCaja;
 use Conect\Conexion;
 use Controladores\ControladorSucursal;
+
+require_once __DIR__ . "/../Controladores/helpers.php";
 
 unset($_SESSION['carrito']);
 unset($_SESSION['carritoC']);
@@ -205,12 +208,12 @@ $tiem = time();
       if (isset($_GET["ruta"])) {
         $item = 'rol';
         $valor = @$_SESSION['perfil'];
-        $roles = ControladorUsuarios::ctrMostrarRoles($item, $valor);
+        $roles = ControladorRoles::ctrMostrarRoles($item, $valor);
 
         $item = 'id_rol';
         $valor = $roles['id'];
         $valor2 = $_GET['ruta'];
-        $accesos = ControladorUsuarios::ctrMostrarAccesos($item, $valor,  $valor2);
+        $accesos = ControladorRoles::ctrMostrarAccesos($item, $valor,  $valor2);
 
 
         // var_dump($v);

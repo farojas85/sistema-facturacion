@@ -6,6 +6,7 @@ use Modelos\ModeloUsuarios;
 use Controladores\ControladorEmpresa;
 use Controladores\ControladorSucursal;
 use Modelos\ModeloEmpresa;
+use Modelos\ModeloRoles;
 
 class ControladorUsuarios
 {
@@ -191,7 +192,6 @@ class ControladorUsuarios
     // MOSTRAR ROLES DE USUARIO|
     public static function ctrMostrarRoles($item, $valor)
     {
-
         $tabla = 'roles';
         $respuesta = ModeloUsuarios::mdlMostrarUsuarios($tabla, $item, $valor);
         return $respuesta;
@@ -199,7 +199,6 @@ class ControladorUsuarios
     // MOSTRAR USUARIOS|
     public static function ctrMostrarUsuarios($item, $valor)
     {
-
         $tabla = 'usuarios';
         $respuesta = ModeloUsuarios::mdlMostrarUsuarios($tabla, $item, $valor);
         return $respuesta;
@@ -462,57 +461,4 @@ class ControladorUsuarios
     }
 
     //ROLES DE USUARIO
-
-    public static function ctrCrearRol($datos)
-    {
-        $tabla = 'roles';
-        $respuesta = ModeloUsuarios::mdlCrearRol($tabla, $datos);
-        return $respuesta;
-    }
-    public static function ctrCrearAccesos($datos, $idRol)
-    {
-        $tabla = 'rol_acceso';
-        $respuesta = ModeloUsuarios::mdlCrearAccesos($tabla, $datos, $idRol);
-        return $respuesta;
-    }
-    public static function ctrMostrarAccesos($item, $valor,  $valor2)
-    {
-        $tabla = 'rol_acceso';
-        $respuesta = ModeloUsuarios::mdlMostrarAccesos($tabla, $item, $valor, $valor2);
-        return $respuesta;
-    }
-    public static function ctrMostrarAccesosid($item, $valor)
-    {
-        $tabla = 'rol_acceso';
-        $respuesta = ModeloUsuarios::mdlMostrarAccesosid($tabla, $item, $valor);
-        return $respuesta;
-    }
-    public static function ctrEditarAccesos($item, $valor, $datos)
-    {
-        $tabla = 'rol_acceso';
-        $respuesta = ModeloUsuarios::mdlEditarAccesos($tabla, $item, $valor, $datos);
-        return $respuesta;
-    }
-
-    public static function ctrEliminarRol($valor)
-    {
-        $tabla = 'roles';
-        $respuesta = ModeloUsuarios::mdlEliminarRol($tabla, $valor);
-        return $respuesta;
-    }
-    public static function ctrEliminarAccesos($valor)
-    {
-        $tabla = 'rol_acceso';
-        $respuesta = ModeloUsuarios::mdlEliminarAccesos($tabla, $valor);
-        return $respuesta;
-    }
-
-    public static function ctrCrearLinkAccesos($datos)
-    {
-
-        $tabla = "rol_acceso";
-
-        $respuesta = ModeloUsuarios::mdlCrearLinkAccesos($tabla, $datos);
-        return $respuesta;
-    }
 }

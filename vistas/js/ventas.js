@@ -155,8 +155,8 @@ $(document).on("click", ".agregarProducto", function () {
   var descripcionProducto = $(this).attr("descripcionP");
   var idProducto = $(this).attr("idProducto");
   var countStock = $(".stock" + idProducto).attr("stock");
-  var ruta = $('#ruta_comprobante').val();
-  
+  var ruta = $("#ruta_comprobante").val();
+
   // console.log(countStock);
   var datos = { idProducto: idProducto };
   $.ajax({
@@ -168,25 +168,25 @@ $(document).on("click", ".agregarProducto", function () {
     success: function (respuestas) {
       let stockProducto = respuestas["stock"];
       let totalStock = countStock - 1;
-      if(ruta != 'crear-cotizacion'){
-      if (totalStock <= 20) {
-        $(".stock" + idProducto)
-          .removeClass("btn-primary")
-          .addClass("btn-dangerstock");
+      if (ruta != "crear-cotizacion") {
+        if (totalStock <= 20) {
+          $(".stock" + idProducto)
+            .removeClass("btn-primary")
+            .addClass("btn-dangerstock");
+        }
+        if (totalStock <= 0) {
+          $(".stock" + idProducto).html(0);
+          $(".stock" + idProducto).attr("stock", 0);
+          $(".stock" + idProducto)
+            .removeClass("btn-primary")
+            .addClass("btn-dangerstock");
+        } else {
+          $(".stock" + idProducto).html(totalStock);
+          $(".stock" + idProducto).attr("stock", totalStock);
+        }
       }
-      if (totalStock <= 0) {
-        $(".stock" + idProducto).html(0);
-        $(".stock" + idProducto).attr("stock", 0);
-        $(".stock" + idProducto)
-          .removeClass("btn-primary")
-          .addClass("btn-dangerstock");
-      } else {
-        $(".stock" + idProducto).html(totalStock);
-        $(".stock" + idProducto).attr("stock", totalStock);
-      }
-    }
-      if(ruta != 'crear-cotizacion'){
-      if (Number(totalStock) >= 0 && respuestas["stock"] > 0) {
+      if (ruta != "crear-cotizacion") {
+        //if (Number(totalStock) >= 0 && respuestas["stock"] > 0) {
         let descuentoGlobal = $("#descuentoGlobal").val();
         let descuentoGlobalP = $("#descuentoGlobalP").val();
         let tipo_desc = $("input[name=tipo_desc]:checked").val();
@@ -253,28 +253,27 @@ $(document).on("click", ".agregarProducto", function () {
             loadDetraccion();
           },
         });
+        //} else {
+        // const Toast = Swal.mixin({
+        //   toast: true,
+        //   position: "top-end",
+        //   // width: 600,
+        //   // padding: '3em',
+        //   showConfirmButton: false,
+        //   timer: 6000,
+        //   timerProgressBar: true,
+        //   didOpen: (toast) => {
+        //     toast.addEventListener("mouseenter", Swal.stopTimer);
+        //     toast.addEventListener("mouseleave", Swal.resumeTimer);
+        //   },
+        // });
+        // Toast.fire({
+        //   icon: "warning",
+        //   title: `<h4>El stock de este producto llegó a su límite</h4>`,
+        // });
+        //}
       } else {
-        const Toast = Swal.mixin({
-          toast: true,
-          position: "top-end",
-          // width: 600,
-          // padding: '3em',
-          showConfirmButton: false,
-          timer: 6000,
-          timerProgressBar: true,
-          didOpen: (toast) => {
-            toast.addEventListener("mouseenter", Swal.stopTimer);
-            toast.addEventListener("mouseleave", Swal.resumeTimer);
-          },
-        });
-
-        Toast.fire({
-          icon: "warning",
-          title: `<h4>El stock de este producto llegó a su límite</h4>`,
-        });
-      }
-    }else{
-      let descuentoGlobal = $("#descuentoGlobal").val();
+        let descuentoGlobal = $("#descuentoGlobal").val();
         let descuentoGlobalP = $("#descuentoGlobalP").val();
         let tipo_desc = $("input[name=tipo_desc]:checked").val();
         let moneda = $("#moneda").val();
@@ -340,7 +339,7 @@ $(document).on("click", ".agregarProducto", function () {
             loadDetraccion();
           },
         });
-    }
+      }
     },
   });
 });
@@ -658,88 +657,90 @@ $(document).on("click", "#printT", function (e) {
 function enviarCompWhatsapp(celular) {
   var enviawsc = $("#enviawsc:checked").val();
   // console.log(enviawsc);
- if(enviawsc == "si"){
-  let idComp = $("#idCo").val();
-  let numberws = celular;
-  let codnumberws = $("#codnumberws").val();
-  var enviowsapi = $("#enviowsapi").val();
-  var datos = { idComp: idComp, numberws: numberws, codnumberws: codnumberws };
-  console.log(datos);
-  var urls = "vistas/print/wspdf/index.php";
-  $.ajax({  
-    method: "POST",
-    url: urls,
-    data: {idComp: idComp},
-    beforeSend: function () {
-      // $(".reload-all")
-      //   .fadeIn(50)
-      //   .html("<img src='vistas/img/reload.svg' width='80px'> ");
-    },
-    success:function(data){
-      $(".reload-all").fadeOut(50);
-      if(enviowsapi == "s"){
-      var urls = "vistas/sendws/envio-ws.php";
-      }else{
-        var urls = "vistas/sendws/envio-ws-local.php";
-      }
-  
-      $.ajax({
-        method: "POST",
-        url: urls,
-        data: datos,
-        beforeSend: function () {
-          $(".reload-all")
-            .fadeIn(50)
-            .html("<img src='vistas/img/reload.svg' width='30px'> ");
-        },
-        success: function (data) {
-          $(".reload-all").fadeOut(50);
-          // console.log(data);
-          if(data == "errorinstancia"){
-            const Toast = Swal.mixin({
-              toast: true,
-              position: "top-end",
-              // width: 600,
-              // padding: '3em',
-              showConfirmButton: false,
-              timer: 6000,
-              timerProgressBar: true,
-              didOpen: (toast) => {
-                toast.addEventListener("mouseenter", Swal.stopTimer);
-                toast.addEventListener("mouseleave", Swal.resumeTimer);
-              },
-            });
-  
-            Toast.fire({
-              icon: "error",
-              title: `<h5>¡Error al enviar al whatsapp, debe instanciar el servicio!</h5>`,
-            });
-            $('#enviawsc').bootstrapToggle('off');
+  if (enviawsc == "si") {
+    let idComp = $("#idCo").val();
+    let numberws = celular;
+    let codnumberws = $("#codnumberws").val();
+    var enviowsapi = $("#enviowsapi").val();
+    var datos = {
+      idComp: idComp,
+      numberws: numberws,
+      codnumberws: codnumberws,
+    };
+    console.log(datos);
+    var urls = "vistas/print/wspdf/index.php";
+    $.ajax({
+      method: "POST",
+      url: urls,
+      data: { idComp: idComp },
+      beforeSend: function () {
+        // $(".reload-all")
+        //   .fadeIn(50)
+        //   .html("<img src='vistas/img/reload.svg' width='80px'> ");
+      },
+      success: function (data) {
+        $(".reload-all").fadeOut(50);
+        if (enviowsapi == "s") {
+          var urls = "vistas/sendws/envio-ws.php";
+        } else {
+          var urls = "vistas/sendws/envio-ws-local.php";
+        }
 
-          }else{
-          if(data != "error"){
-            // $(".respuesta-envio-ws").html("¡Comprobante enviado!");
-            const Toast = Swal.mixin({
-              toast: true,
-              position: "top-end",
-              // width: 600,
-              // padding: '3em',
-              showConfirmButton: false,
-              timer: 6000,
-              timerProgressBar: true,
-              didOpen: (toast) => {
-                toast.addEventListener("mouseenter", Swal.stopTimer);
-                toast.addEventListener("mouseleave", Swal.resumeTimer);
-              },
-            });
-  
-            Toast.fire({
-              icon: "success",
-              title: `<h5>COMPROBANTE ENVIADO AL :+${codnumberws}${numberws}</h5>`,
-            });
-            $('#enviawsc').bootstrapToggle('off');
-              }else{
-              
+        $.ajax({
+          method: "POST",
+          url: urls,
+          data: datos,
+          beforeSend: function () {
+            $(".reload-all")
+              .fadeIn(50)
+              .html("<img src='vistas/img/reload.svg' width='30px'> ");
+          },
+          success: function (data) {
+            $(".reload-all").fadeOut(50);
+            // console.log(data);
+            if (data == "errorinstancia") {
+              const Toast = Swal.mixin({
+                toast: true,
+                position: "top-end",
+                // width: 600,
+                // padding: '3em',
+                showConfirmButton: false,
+                timer: 6000,
+                timerProgressBar: true,
+                didOpen: (toast) => {
+                  toast.addEventListener("mouseenter", Swal.stopTimer);
+                  toast.addEventListener("mouseleave", Swal.resumeTimer);
+                },
+              });
+
+              Toast.fire({
+                icon: "error",
+                title: `<h5>¡Error al enviar al whatsapp, debe instanciar el servicio!</h5>`,
+              });
+              $("#enviawsc").bootstrapToggle("off");
+            } else {
+              if (data != "error") {
+                // $(".respuesta-envio-ws").html("¡Comprobante enviado!");
+                const Toast = Swal.mixin({
+                  toast: true,
+                  position: "top-end",
+                  // width: 600,
+                  // padding: '3em',
+                  showConfirmButton: false,
+                  timer: 6000,
+                  timerProgressBar: true,
+                  didOpen: (toast) => {
+                    toast.addEventListener("mouseenter", Swal.stopTimer);
+                    toast.addEventListener("mouseleave", Swal.resumeTimer);
+                  },
+                });
+
+                Toast.fire({
+                  icon: "success",
+                  title: `<h5>COMPROBANTE ENVIADO AL :+${codnumberws}${numberws}</h5>`,
+                });
+                $("#enviawsc").bootstrapToggle("off");
+              } else {
                 const Toast = Swal.mixin({
                   toast: true,
                   position: "top-end",
@@ -753,23 +754,25 @@ function enviarCompWhatsapp(celular) {
                     toast.addEventListener("mouseleave", Swal.resumeTimer);
                   },
                 });
-      
+
                 Toast.fire({
                   icon: "error",
                   title: ``,
                   html: `<div class='respuesta-envio-ws'></div`,
                 });
-                $(".respuesta-envio-ws").fadeIn(500).html("¡Error al enviar al whatsapp, debe ingresar un número válido!<br>¡Envíe desde administrar ventas o reporte de ventas!");
-                $('#enviawsc').bootstrapToggle('off');
+                $(".respuesta-envio-ws")
+                  .fadeIn(500)
+                  .html(
+                    "¡Error al enviar al whatsapp, debe ingresar un número válido!<br>¡Envíe desde administrar ventas o reporte de ventas!"
+                  );
+                $("#enviawsc").bootstrapToggle("off");
               }
             }
-        },
-      
-      });
-    
-    }  
-  });
-}
+          },
+        });
+      },
+    });
+  }
 }
 //   REENVIAR REPORTES AL CORREO===========================
 function enviarReporteVenta() {
@@ -935,12 +938,12 @@ function loadVentas(page) {
 
   $.ajax({
     url: "vistas/tables/dataTables.php",
-    method: 'GET',
+    method: "GET",
     data: parametros,
     // cache: false,
     // contentType: false,
     // processData: false,
-    
+
     beforeSend: function () {
       $(".reload-all")
         .fadeIn(50)
@@ -949,22 +952,17 @@ function loadVentas(page) {
     success: function (data) {
       // console.log(data);
       $(".reload-all").hide();
-    
-      $(".body-ventas").html(data);
-     
-    }, error:function(data){
-       var error500 = data.status;
-       return error500;
-    }
-  });
-};
 
+      $(".body-ventas").html(data);
+    },
+    error: function (data) {
+      var error500 = data.status;
+      return error500;
+    },
+  });
+}
 
 loadVentas(1);
-
-  
-
-
 
 $("#sol").on("click", function () {
   $("#por").addClass("off");
@@ -1345,11 +1343,11 @@ function detraccionesBienesSelva() {
   $.ajax({
     url: "vistas/modulos/contenedor-detra-selva.php",
     success: function (respuesta) {
-  $(".load-detracciones-servicios-selva").html(respuesta);
-  $(".contenedor-detracciones").fadeOut(200);
+      $(".load-detracciones-servicios-selva").html(respuesta);
+      $(".contenedor-detracciones").fadeOut(200);
+    },
+  });
 }
-})
-  }
 detraccionesBienesSelva();
 
 $(document).on("change", "#detraccion", function () {
@@ -1358,9 +1356,9 @@ $(document).on("change", "#detraccion", function () {
     $(".contenedor-detracciones").fadeIn(200);
   } else {
     $(".contenedor-detracciones").fadeOut(200);
-    $("#tipodetraccion").val(null).trigger('change');    
-    $("#tipo_pago_detraccion").val(null).trigger('change');    
-    $("#cuentadetraccion").val(null).trigger('change');
+    $("#tipodetraccion").val(null).trigger("change");
+    $("#tipo_pago_detraccion").val(null).trigger("change");
+    $("#cuentadetraccion").val(null).trigger("change");
     $("#pordetraccion").val("");
     $("#totaldetraccion").val("");
   }
@@ -1386,27 +1384,26 @@ $(document).on("change", "#tipodetraccion", function () {
 
 function loadDetraccion() {
   var detraccion = $("input[name=detraccion]:checked").val();
-if(detraccion == 'si') {
- 
-  var coddetraccion = $("#tipodetraccion").val();
-  let totales = $("#totalOperacion").val();
-  var datos = { coddetraccion: coddetraccion, totales: totales };
+  if (detraccion == "si") {
+    var coddetraccion = $("#tipodetraccion").val();
+    let totales = $("#totalOperacion").val();
+    var datos = { coddetraccion: coddetraccion, totales: totales };
 
-  $.ajax({
-    method: "POST",
-    url: "ajax/sunat.ajax.php",
-    data: datos,
-    dataType: "json",
-    success: function (respuesta) {
-      console.log(respuesta);
-      $("#pordetraccion").val(respuesta["porcentaje"]);
-      $("#totaldetraccion").val(respuesta["totaldetraccion"]);
-    },
-  });
-}
+    $.ajax({
+      method: "POST",
+      url: "ajax/sunat.ajax.php",
+      data: datos,
+      dataType: "json",
+      success: function (respuesta) {
+        console.log(respuesta);
+        $("#pordetraccion").val(respuesta["porcentaje"]);
+        $("#totaldetraccion").val(respuesta["totaldetraccion"]);
+      },
+    });
+  }
 }
 
-$(document).on('keyup', '#pordetraccion', function(){
+$(document).on("keyup", "#pordetraccion", function () {
   let porcentajeDetraccion = $(this).val();
   let totales = $("#totalOperacion").val();
   var datos = { porcentajeDetraccion: porcentajeDetraccion, totales: totales };
@@ -1422,4 +1419,4 @@ $(document).on('keyup', '#pordetraccion', function(){
       $("#totaldetraccion").val(respuesta["totaldetraccion"]);
     },
   });
-})
+});

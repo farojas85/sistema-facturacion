@@ -1,30 +1,33 @@
 <?php
+// error_reporting(E_ALL);
+// ini_set("display_errors", 1);
 session_start();
 require_once "../../vendor/autoload.php";
 
-use Controladores\ControladorUsuarios;
+
+use Controladores\ControladorRoles;
 
 $item = 'rol';
 $valor = $_SESSION['perfil'];
-$roles = ControladorUsuarios::ctrMostrarRoles($item, $valor);
+$roles = ControladorRoles::ctrMostrarRoles($item, $valor);
 ?>
 <table class="table  dt-responsive tablas unidad-me" width="100%">
 
-  <thead>
-    <tr>
-      <th style="width:10px;">#</th>
-      <th>ROL DE USUARIO</th>
-      <th>ACCIONES</th>
-    </tr>
-  </thead class="contenido-roles">
+    <thead>
+        <tr>
+            <th style="width:10px;">#</th>
+            <th>ROL DE USUARIO</th>
+            <th>ACCIONES</th>
+        </tr>
+    </thead class="contenido-roles">
 
 
-  <tbody>
+    <tbody>
 
-    <?php
+        <?php
     $item = null;
     $valor = null;
-    $rolesUsuario = ControladorUsuarios::ctrMostrarRoles($item, $valor);
+    $rolesUsuario = ControladorRoles::ctrMostrarRoles($item, $valor);
 
 
 
@@ -32,7 +35,7 @@ $roles = ControladorUsuarios::ctrMostrarRoles($item, $valor);
       $item = 'id_rol';
       $valor = $v['id'];
 
-      $accesos = ControladorUsuarios::ctrMostrarAccesosid($item, $valor);
+      $accesos = ControladorRoles::ctrMostrarAccesosid($item, $valor);
       foreach ($accesos as $i => $a) {
         // echo $a['id_rol'];
       }
@@ -66,37 +69,37 @@ $roles = ControladorUsuarios::ctrMostrarRoles($item, $valor);
     };
     ?>
 
-  </tbody>
+    </tbody>
 </table>
 
 <script>
-  $('.tablas').DataTable({
+$('.tablas').DataTable({
     "language": {
 
-      "sProcessing": "Procesando...",
-      "sLengthMenu": "Mostrar _MENU_",
-      "sZeroRecords": "No se encontraron resultados",
-      "sEmptyTable": "Ningún dato disponible en esta tabla",
-      "sInfo": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_",
-      "sInfoEmpty": "Mostrando registros del 0 al 0 de un total de 0",
-      "sInfoFiltered": "(filtrado de un total de _MAX_ registros)",
-      "sInfoPostFix": "",
-      "sSearch": "Buscar:",
-      "sUrl": "",
-      "sInfoThousands": ",",
-      "sLoadingRecords": "Cargando...",
-      "oPaginate": {
-        "sFirst": "Primero",
-        "sLast": "Último",
-        "sNext": "&rsaquo;",
-        "sPrevious": "&lsaquo;"
-      },
-      "oAria": {
-        "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
-        "sSortDescending": ": Activar para ordenar la columna de manera descendente"
-      }
+        "sProcessing": "Procesando...",
+        "sLengthMenu": "Mostrar _MENU_",
+        "sZeroRecords": "No se encontraron resultados",
+        "sEmptyTable": "Ningún dato disponible en esta tabla",
+        "sInfo": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_",
+        "sInfoEmpty": "Mostrando registros del 0 al 0 de un total de 0",
+        "sInfoFiltered": "(filtrado de un total de _MAX_ registros)",
+        "sInfoPostFix": "",
+        "sSearch": "Buscar:",
+        "sUrl": "",
+        "sInfoThousands": ",",
+        "sLoadingRecords": "Cargando...",
+        "oPaginate": {
+            "sFirst": "Primero",
+            "sLast": "Último",
+            "sNext": "&rsaquo;",
+            "sPrevious": "&lsaquo;"
+        },
+        "oAria": {
+            "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
+            "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+        }
 
     }
 
-  });
+});
 </script>

@@ -2,13 +2,14 @@
 
 use Controladores\ControladorUsuarios;
 use Controladores\ControladorSucursal;
+use Controladores\ControladorRoles;
 
 ?>
 <div class="content-wrapper panel-medio-principal">
     <?php
-  if ($_SESSION['perfil'] == 'Vendedorr' || $_SESSION['perfil'] == 'Especiall') {
+    if ($_SESSION['perfil'] == 'Vendedor' || $_SESSION['perfil'] == 'Especial') {
 
-    echo '
+        echo '
       <section class="container-fluid panel-medio">
       <div class="box alert-dangers text-center">
      <div><h3> Área restringida, solo el administrador puede tener acceso</h3></div>
@@ -16,10 +17,10 @@ use Controladores\ControladorSucursal;
      
      </div>
      </div>';
-  } else {
+    } else {
 
 
-  ?>
+    ?>
     <div style="padding:5px"></div>
     <section class="container-fluid">
         <section class="content-header dashboard-header">
@@ -51,8 +52,8 @@ use Controladores\ControladorSucursal;
                 <h3 class="box-title">Administración de usuarios</h3>
 
                 <?php
-          if ($_SESSION['perfil'] == 'Administrador') {
-          ?>
+                    if ($_SESSION['perfil'] == 'Administrador') {
+                    ?>
                 <button class="btn btn-success  pull-right btn-radius btn-no-user" data-toggle="modal"
                     data-target="#modalAgregarUsuario"><i class="fas fa-plus-square"></i>Nuevo usuario <i
                         class="fas fa-user-plus"></i>
@@ -81,12 +82,12 @@ use Controladores\ControladorSucursal;
 
                     <tbody>
                         <?php
-              if ($_SESSION['perfil'] != 'Administrador') {
-                $item = 'id';
-                $valor = $_SESSION['id'];
-                $usuarios = ControladorUsuarios::ctrMostrarUsuarios($item, $valor);
-                $value = $usuarios;
-              ?>
+                            if ($_SESSION['perfil'] != 'Administrador') {
+                                $item = 'id';
+                                $valor = $_SESSION['id'];
+                                $usuarios = ControladorUsuarios::ctrMostrarUsuarios($item, $valor);
+                                $value = $usuarios;
+                            ?>
 
                         <tr>
                             <td>1</td>
@@ -94,14 +95,14 @@ use Controladores\ControladorSucursal;
                             <td><?php echo $value['usuario']; ?></td>
 
                             <?php
-                  if ($value['foto'] != '') {
+                                    if ($value['foto'] != '') {
 
-                    echo '<td><img src="' . $value['foto'] . '" alt="" class="img-thumbnail" width="40px"></td>';
-                  } else {
+                                        echo '<td><img src="' . $value['foto'] . '" alt="" class="img-thumbnail" width="40px"></td>';
+                                    } else {
 
-                    echo '<td><img src="vistas/img/usuarios/default/anonymous.png" alt="" class="img-thumbnail" width="40px"></td>';
-                  }
-                  ?>
+                                        echo '<td><img src="vistas/img/usuarios/default/anonymous.png" alt="" class="img-thumbnail" width="40px"></td>';
+                                    }
+                                    ?>
                             <!-- <td><img src="" alt="" class="img-thumbnail" width="40px"></td> -->
                             <td><?php echo $value['perfil']; ?></td>
 
@@ -114,8 +115,7 @@ use Controladores\ControladorSucursal;
                                         name="usuarioEstado<?php $value['estado'] ?>" value="<?php $value['estado'] ?>"
                                         data-size="mini" data-width="110" idUsuario="<?php echo $value['id'] ?>"
                                         <?php if ($value['estado'] == 0) {
-                                                                                                                                                                                                                                                                                                                          } else { ?>checked
-                                        <?php } ?>>
+                                                                                                                            } else { ?>checked <?php } ?>>
                                 </div>
                             </td>
 
@@ -129,8 +129,8 @@ use Controladores\ControladorSucursal;
                                         idUsuario="<?php echo $value['id'] ?>" data-toggle="modal"
                                         data-target="#modalEditarUsuario"><i class="fas fa-user-edit"></i></button>
                                     <?php
-                      if ($_SESSION['perfil'] == 'Administrador') {
-                      ?>
+                                            if ($_SESSION['perfil'] == 'Administrador') {
+                                            ?>
                                     <button class="btn btn-danger btnEliminarUsuario"
                                         idUsuario="<?php echo $value['id'] ?>"
                                         fotoUsuario="<?php echo $value['foto'] ?>"
@@ -147,28 +147,28 @@ use Controladores\ControladorSucursal;
 
 
                         <?php
-              } else {
-                $item = null;
-                $valor = null;
-                $usuarios = ControladorUsuarios::ctrMostrarUsuarios($item, $valor);
+                            } else {
+                                $item = null;
+                                $valor = null;
+                                $usuarios = ControladorUsuarios::ctrMostrarUsuarios($item, $valor);
 
-                foreach ($usuarios as $key => $value) :
+                                foreach ($usuarios as $key => $value) :
 
-                ?>
+                                ?>
                         <tr>
                             <td><?php echo ++$key; ?></td>
                             <td><?php echo $value['nombre']; ?></td>
                             <td><?php echo $value['usuario']; ?></td>
 
                             <?php
-                    if ($value['foto'] != '') {
+                                        if ($value['foto'] != '') {
 
-                      echo '<td><img src="' . $value['foto'] . '" alt="" class="img-thumbnail" width="40px"></td>';
-                    } else {
+                                            echo '<td><img src="' . $value['foto'] . '" alt="" class="img-thumbnail" width="40px"></td>';
+                                        } else {
 
-                      echo '<td><img src="vistas/img/usuarios/default/anonymous.png" alt="" class="img-thumbnail" width="40px"></td>';
-                    }
-                    ?>
+                                            echo '<td><img src="vistas/img/usuarios/default/anonymous.png" alt="" class="img-thumbnail" width="40px"></td>';
+                                        }
+                                        ?>
                             <!-- <td><img src="" alt="" class="img-thumbnail" width="40px"></td> -->
                             <td><?php echo $value['perfil']; ?></td>
 
@@ -180,16 +180,16 @@ use Controladores\ControladorSucursal;
                                         data-off="Desactivado" data-onstyle="primary" data-offstyle="danger"
                                         id="usuarioEstado" name="usuarioEstado<?php $value['estado'] ?>"
                                         value="<?php $value['estado'] ?>" data-size="mini" data-width="110"
-                                        idUsuario="<?php echo $value['id'] ?>"
-                                        <?php if ($value['estado'] == 0) {
-                                                                                                                                                                                                                                                                                                                                        } else { ?>checked
+                                        idUsuario="<?php echo $value['id'] ?>" <?php if ($value['estado'] == 0) {
+                                                                                            } else { ?>checked
                                         <?php } ?>>
                                 </div>
                             </td>
 
 
                             <!-- <td><button class="btn btn-success btn-xs">activo</button></td> -->
-                            <td><?php echo date_format(date_create($value['ultimo_login']), 'd/m/Y H:i:s'); ?></td>
+                            <!-- <td><?php echo date_format(date_create($value['ultimo_login']), 'd/m/Y H:i:s'); ?></td> -->
+                            <td><?= "" ?? date_format(date_create($value['ultimo_login']), 'd/m/Y H:i:s') ?></td>
                             <td>
                                 <div class="btn-group">
 
@@ -197,8 +197,8 @@ use Controladores\ControladorSucursal;
                                         idUsuario="<?php echo $value['id'] ?>" data-toggle="modal"
                                         data-target="#modalEditarUsuario"><i class="fas fa-user-edit"></i></button>
                                     <?php
-                        if ($_SESSION['perfil'] == 'Administrador') {
-                        ?>
+                                                if ($_SESSION['perfil'] == 'Administrador') {
+                                                ?>
                                     <button class="btn btn-danger btnEliminarUsuario"
                                         idUsuario="<?php echo $value['id'] ?>"
                                         fotoUsuario="<?php echo $value['foto'] ?>"
@@ -214,9 +214,9 @@ use Controladores\ControladorSucursal;
                         </tr>
 
                         <?php
-                endforeach;
-              }
-              ?>
+                                endforeach;
+                            }
+                            ?>
                     </tbody>
 
                 </table>
@@ -320,13 +320,13 @@ MODAL AGREGAR USUARIO
                                 <select class="form-control " name="nuevoPerfil" id="nuevoPerfil">
                                     <option value="">Selecionar perfil</option>
                                     <?php
-                  $item = null;
-                  $valor = null;
-                  $roles = ControladorUsuarios::ctrMostrarRoles($item, $valor);
-                  foreach ($roles as $k => $v) {
-                    echo '<option value="' . $v['rol'] . '">' . $v['rol'] . '</option>';
-                  }
-                  ?>
+                                    $item = null;
+                                    $valor = null;
+                                    $roles = ControladorRoles::ctrMostrarRoles($item, $valor);
+                                    foreach ($roles as $k => $v) {
+                                        echo '<option value="' . $v['rol'] . '">' . $v['rol'] . '</option>';
+                                    }
+                                    ?>
 
 
 
@@ -339,21 +339,21 @@ MODAL AGREGAR USUARIO
 
                                 <select class="form-control " name="nuevaSucursal" id="nuevaSucursal">
                                     <?php
-                  if ($_SESSION['perfil'] == 'Administrador') {
-                    echo '<option value="">SUCURSAL</option>';
-                    $item = null;
-                    $valor = null;
-                    $sucursal = ControladorSucursal::ctrSucursalPrincipal($item, $valor);
-                    foreach ($sucursal as $k => $v) {
-                      echo '<option value="' . $v['id'] . '">' . $v['nombre_sucursal'] . ' - Código ' . $v['codigo'] . '</option>';
-                    }
-                  } else {
+                                    if ($_SESSION['perfil'] == 'Administrador') {
+                                        echo '<option value="">SUCURSAL</option>';
+                                        $item = null;
+                                        $valor = null;
+                                        $sucursal = ControladorSucursal::ctrSucursalPrincipal($item, $valor);
+                                        foreach ($sucursal as $k => $v) {
+                                            echo '<option value="' . $v['id'] . '">' . $v['nombre_sucursal'] . ' - Código ' . $v['codigo'] . '</option>';
+                                        }
+                                    } else {
 
-                    $sucursal = ControladorSucursal::ctrSucursal();
+                                        $sucursal = ControladorSucursal::ctrSucursal();
 
-                    echo '<option value="' . $sucursal['id'] . '">' . $sucursal['nombre_sucursal'] . ' - Código: ' . $sucursal['codigo'] . '</option>';
-                  }
-                  ?>
+                                        echo '<option value="' . $sucursal['id'] . '">' . $sucursal['nombre_sucursal'] . ' - Código: ' . $sucursal['codigo'] . '</option>';
+                                    }
+                                    ?>
 
                                 </select>
                             </div>
@@ -392,9 +392,9 @@ MODAL AGREGAR USUARIO
 
                 <?php
 
-        // $crearUsuario = ControladorUsuarios::ctrCrearUsuario();
+                // $crearUsuario = ControladorUsuarios::ctrCrearUsuario();
 
-        ?>
+                ?>
 
             </form>
 
@@ -481,21 +481,21 @@ MODAL AGREGAR USUARIO
 
                             <div class="form-group">
                                 <?php
-                if ($_SESSION['perfil'] == 'Administrador') {
-                ?>
+                                if ($_SESSION['perfil'] == 'Administrador') {
+                                ?>
 
                                 <select class="form-control " name="editarPerfil">
                                     <option value="" id="editarPerfil"></option>
 
 
                                     <?php
-                    $item = null;
-                    $valor = null;
-                    $roles = ControladorUsuarios::ctrMostrarRoles($item, $valor);
-                    foreach ($roles as $k => $v) {
-                      echo '<option value="' . $v['rol'] . '">' . $v['rol'] . '</option>';
-                    }
-                    ?>
+                                        $item = null;
+                                        $valor = null;
+                                        $roles = ControladorRoles::ctrMostrarRoles($item, $valor);
+                                        foreach ($roles as $k => $v) {
+                                            echo '<option value="' . $v['rol'] . '">' . $v['rol'] . '</option>';
+                                        }
+                                        ?>
 
 
 
@@ -522,20 +522,20 @@ MODAL AGREGAR USUARIO
 
                                 <select class="form-control " name="editarSucursal" id="editarSucursal">
                                     <?php
-                  if ($_SESSION['perfil'] == 'Administrador') {
-                    $item = null;
-                    $valor = null;
-                    $sucursal = ControladorSucursal::ctrSucursalPrincipal($item, $valor);
-                    foreach ($sucursal as $k => $v) {
-                      echo '<option value="' . $v['id'] . '">' . $v['nombre_sucursal'] . ' - Código: ' . $v['codigo'] . '</option>';
-                    }
-                  } else {
+                                    if ($_SESSION['perfil'] == 'Administrador') {
+                                        $item = null;
+                                        $valor = null;
+                                        $sucursal = ControladorSucursal::ctrSucursalPrincipal($item, $valor);
+                                        foreach ($sucursal as $k => $v) {
+                                            echo '<option value="' . $v['id'] . '">' . $v['nombre_sucursal'] . ' - Código: ' . $v['codigo'] . '</option>';
+                                        }
+                                    } else {
 
-                    $sucursal = ControladorSucursal::ctrSucursal();
+                                        $sucursal = ControladorSucursal::ctrSucursal();
 
-                    echo '<option value="' . $sucursal['id'] . '">' . $sucursal['nombre_sucursal'] . ' - Código: ' . $sucursal['codigo'] . '</option>';
-                  }
-                  ?>
+                                        echo '<option value="' . $sucursal['id'] . '">' . $sucursal['nombre_sucursal'] . ' - Código: ' . $sucursal['codigo'] . '</option>';
+                                    }
+                                    ?>
 
                                 </select>
                             </div>
@@ -577,10 +577,10 @@ MODAL AGREGAR USUARIO
 
                 <?php
 
-        $editarUsuario = new ControladorUsuarios();
-        $editarUsuario->ctrEditarUsuario();
+                $editarUsuario = new ControladorUsuarios();
+                $editarUsuario->ctrEditarUsuario();
 
-        ?>
+                ?>
 
             </form>
 

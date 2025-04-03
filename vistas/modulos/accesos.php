@@ -2,6 +2,7 @@
 
 use Controladores\ControladorCategorias;
 use Controladores\ControladorUsuarios;
+use Controladores\ControladorRoles;
 
 ?>
 
@@ -17,8 +18,10 @@ use Controladores\ControladorUsuarios;
                         <button class=""><i class="fas fa-file-invoice"></i> Categoría</button>
                     </div>
                     <div class="col-md-9  col-sm-12 btns-dash">
-                        <a href="crear-factura" class="btn pull-right" style="margin-left:10px"><i class="fas fa-file-invoice"></i> Emitir factura</a>
-                        <a href="crear-boleta" class="btn pull-right"><i class="fas fa-file-invoice"> </i> Emitir boleta</a>
+                        <a href="crear-factura" class="btn pull-right" style="margin-left:10px"><i
+                                class="fas fa-file-invoice"></i> Emitir factura</a>
+                        <a href="crear-boleta" class="btn pull-right"><i class="fas fa-file-invoice"> </i> Emitir
+                            boleta</a>
                     </div>
                 </div>
             </div>
@@ -60,7 +63,7 @@ use Controladores\ControladorUsuarios;
                                     </option> <?php
                                                 $item = null;
                                                 $valor = null;
-                                                $roles = ControladorUsuarios::ctrMostrarRoles($item, $valor);
+                                                $roles = ControladorRoles::ctrMostrarRoles($item, $valor);
 
                                                 foreach ($roles as $k => $v) {
 
@@ -84,7 +87,8 @@ use Controladores\ControladorUsuarios;
 
                                 <span class="input-group-addon"><i class="fa fa-th"></i></span>
 
-                                <input type="text" class="form-control" name="nuevoacceso" id="nuevoacceso" placeholder="Ingresar nombre" required>
+                                <input type="text" class="form-control" name="nuevoacceso" id="nuevoacceso"
+                                    placeholder="Ingresar nombre" required>
 
                             </div>
 
@@ -95,7 +99,8 @@ use Controladores\ControladorUsuarios;
 
                                 <span class="input-group-addon"><i class="fa fa-th"></i></span>
 
-                                <input type="text" class="form-control" name="nuevolink" id="nuevolink" placeholder="Ingresar link" required>
+                                <input type="text" class="form-control" name="nuevolink" id="nuevolink"
+                                    placeholder="Ingresar link" required>
 
                             </div>
 
@@ -105,7 +110,8 @@ use Controladores\ControladorUsuarios;
 
 
 
-                        <button type="submit" class="btn btn-primary pull-right" id="btmNuevoAcesos">Guardar Acceso</button>
+                        <button type="submit" class="btn btn-primary pull-right" id="btmNuevoAcesos">Guardar
+                            Acceso</button>
                 </form>
             </div>
 
@@ -121,4 +127,3 @@ use Controladores\ControladorUsuarios;
 </section>
 
 </div>
-

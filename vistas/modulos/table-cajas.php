@@ -29,44 +29,44 @@ use Controladores\ControladorCaja;
             // if($value['activo'] == 1):
         ?>
 
-        <tr>
-            <td class="numeracion"><?php echo ++$key; ?></td>
-            <td class="text-uppercase"><?php echo $value['nombre']; ?></td>
-            <td class="text-uppercase"><?php echo $value['numero_caja']; ?></td>
-            <td>
-                <?php
+            <tr>
+                <td class="numeracion"><?php echo ++$key; ?></td>
+                <td class="text-uppercase"><?php echo $value['nombre']; ?></td>
+                <td class="text-uppercase"><?php echo $value['numero_caja']; ?></td>
+                <td>
+                    <?php
                     if ($value['activo'] == 1) {
                         echo '<button class="btn btn-success btn-xs">Activo</button>';
                     } else {
                         echo '<button class="btn btn-danger btn-xs">Inactivo</button>';
                     }
                     ?>
-            </td>
-            <td>
-                <div class="btn-group">
+                </td>
+                <td>
+                    <div class="btn-group">
 
-                    <button class="btn bg-primary btnAsignarUsuario" idCaja=" <?php echo $value['id']; ?>"
-                        data-toggle="modal" data-target="#modalAsignarUsuario">
-                        <i class="fas fa-user-plus"></i>
-                    </button>
+                        <button class="btn btn-primary btnAsignarUsuario" idCaja=" <?php echo $value['id']; ?>"
+                            data-toggle="modal" data-target="#modalAsignarUsuario">
+                            <i class="fas fa-user-plus"></i>
+                        </button>
 
-                    <button class="btn btn-warning btnEditarCaja" idCaja=" <?php echo $value['id']; ?>"
-                        data-toggle="modal" data-target="#modalEditarCaja">
-                        <i class="fas fa-edit"></i>
-                    </button>
+                        <button class="btn btn-warning btnEditarCaja" idCaja=" <?php echo $value['id']; ?>"
+                            data-toggle="modal" data-target="#modalEditarCaja">
+                            <i class="fas fa-edit"></i>
+                        </button>
 
-                    <?php if ($_SESSION['perfil'] == 'Administrador') : ?>
-                    <button class="btn btn-danger btnEliminarCaja" idCaja="<?php echo $value['id']; ?>"><i
-                            class="fas fa-trash-alt"></i></button>
+                        <?php if ($_SESSION['perfil'] == 'Administrador') : ?>
+                            <button class="btn btn-danger btnEliminarCaja" idCaja="<?php echo $value['id']; ?>"><i
+                                    class="fas fa-trash-alt"></i></button>
 
-                    <?php endif; ?>
+                        <?php endif; ?>
 
-                </div>
+                    </div>
 
 
-            </td>
+                </td>
 
-        </tr>
+            </tr>
 
         <?php
         // endif;
@@ -77,33 +77,33 @@ use Controladores\ControladorCaja;
 
 </table>
 <script>
-$('.tablas').DataTable({
-    "language": {
+    $('.tablas').DataTable({
+        "language": {
 
-        "sProcessing": "Procesando...",
-        "sLengthMenu": "Mostrar _MENU_",
-        "sZeroRecords": "No se encontraron resultados",
-        "sEmptyTable": "Ningún dato disponible en esta tabla",
-        "sInfo": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_",
-        "sInfoEmpty": "Mostrando registros del 0 al 0 de un total de 0",
-        "sInfoFiltered": "(filtrado de un total de _MAX_ registros)",
-        "sInfoPostFix": "",
-        "sSearch": "Buscar:",
-        "sUrl": "",
-        "sInfoThousands": ",",
-        "sLoadingRecords": "Cargando...",
-        "oPaginate": {
-            "sFirst": "Primero",
-            "sLast": "Último",
-            "sNext": "&rsaquo;",
-            "sPrevious": "&lsaquo;"
-        },
-        "oAria": {
-            "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
-            "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+            "sProcessing": "Procesando...",
+            "sLengthMenu": "Mostrar _MENU_",
+            "sZeroRecords": "No se encontraron resultados",
+            "sEmptyTable": "Ningún dato disponible en esta tabla",
+            "sInfo": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_",
+            "sInfoEmpty": "Mostrando registros del 0 al 0 de un total de 0",
+            "sInfoFiltered": "(filtrado de un total de _MAX_ registros)",
+            "sInfoPostFix": "",
+            "sSearch": "Buscar:",
+            "sUrl": "",
+            "sInfoThousands": ",",
+            "sLoadingRecords": "Cargando...",
+            "oPaginate": {
+                "sFirst": "Primero",
+                "sLast": "Último",
+                "sNext": "&rsaquo;",
+                "sPrevious": "&lsaquo;"
+            },
+            "oAria": {
+                "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
+                "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+            }
+
         }
 
-    }
-
-});
+    });
 </script>

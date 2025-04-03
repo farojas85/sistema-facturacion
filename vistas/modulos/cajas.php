@@ -215,7 +215,7 @@ use Controladores\ControladorUsuarios;
 
 <div id="modalAsignarUsuario" class="modal fade modal-forms" role="dialog">
 
-    <div class="modal-dialog">
+    <div class="modal-dialog modal-lg">
 
         <div class="modal-content">
 
@@ -243,29 +243,48 @@ use Controladores\ControladorUsuarios;
 
                     <div class="box-body">
 
-                        <!-- ENTRADA PARA EL NOMBRE -->
                         <div class="row">
-                            <div class="col-md-12">
-                                <div class="form-group">
-                                    <?php
-                                    $usuarios = ControladorUsuarios::ctrMostrarUsuarios('estado', 1);
-                                    ?>
-                                    <select class="form-control">
+                            <div class="col-md-6">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <?php
+                                            $usuarios = ControladorUsuarios::ctrMostrarUsuarios(null, null);
+                                            ?>
+                                            <select class="form-control">
 
-                                        <option value="">-Seleccionar Usuario-</option>
-                                        <?php
-                                        foreach ($usuarios as $usu) {
-                                            echo "<option value='<?=$usu->id?>'";
-                                        }
-                                        ?>
-                                    </select>
-                                    <!-- <input type="text" class="form-control" name="editarnombre" id="editarnombre"
-                                        placeholder="Ingresar nombre" required> -->
+                                                <option value="">-Seleccionar Usuario-</option>
+                                                <?php
+                                                foreach ($usuarios as $clave => $valor) {
+                                                    echo '<option value="' . $valor['id'] . '">' . $valor['nombre'] . '</option>';
+                                                }
+                                                ?>
+                                            </select>
 
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="row">
+                                    <div class="col-md-12 table-responsive">
+                                        <table class="table table-sm table-bordered">
+                                            <thead>
+                                                <tr>
+                                                    <th>#</th>
+                                                    <th>Usuario</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr></tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="row">
+                        <!-- ENTRADA PARA EL NOMBRE -->
+                        <!-- <div class="row">
                             <div class="col-md-12">
                                 <div class="form-group">
 
@@ -288,7 +307,7 @@ use Controladores\ControladorUsuarios;
 
                                 </div>
                             </div>
-                        </div>
+                        </div> -->
                     </div>
 
                 </div>

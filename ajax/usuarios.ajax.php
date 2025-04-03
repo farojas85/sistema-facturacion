@@ -3,7 +3,9 @@ session_start();
 require_once "../vendor/autoload.php";
 
 use Controladores\ControladorUsuarios;
+use Controladores\ControladorRoles;
 use Modelos\ModeloUsuarios;
+use Modelos\ModeloRoles;
 
 class AjaxUsuarios
 {
@@ -147,7 +149,7 @@ class AjaxUsuarios
             'rol' => trim($_POST['rolUsuario']),
         );
 
-        $respuesta = ControladorUsuarios::ctrCrearRol($datos);
+        $respuesta = ControladorRoles::ctrCrearRol($datos);
         echo $respuesta;
     }
     public function ajaxCrearAccesos()
@@ -157,14 +159,14 @@ class AjaxUsuarios
         $datos = $_POST['accesoroles'];
 
 
-        $respuesta = ControladorUsuarios::ctrCrearAccesos($datos, $idRol);
+        $respuesta = ControladorRoles::ctrCrearAccesos($datos, $idRol);
         echo $respuesta;
     }
     public function ajaxMostrarRoles()
     {
         $item = 'rol';
         $valor = $_POST['roldeusuario'];
-        $respuesta = ControladorUsuarios::ctrMostrarRoles($item, $valor);
+        $respuesta = ControladorRoles::ctrMostrarRoles($item, $valor);
         echo json_encode($respuesta);
     }
     public function ajaxMostrarAccesosEdicion()
@@ -173,7 +175,7 @@ class AjaxUsuarios
         $item = 'id_rol';
         $valor = $_POST['rolid'];
 
-        $accesos = ControladorUsuarios::ctrMostrarAccesosid($item, $valor);
+        $accesos = ControladorRoles::ctrMostrarAccesosid($item, $valor);
         echo '<div class="custom-control custom-checkbox contenedor-roles-ch">';
 
         foreach ($accesos as $k => $a) {
@@ -201,7 +203,7 @@ class AjaxUsuarios
         $datos = array(
             'activo' => $_POST['activo']
         );
-        $respuesta = ControladorUsuarios::ctrEditarAccesos($item, $valor, $datos);
+        $respuesta = ControladorRoles::ctrEditarAccesos($item, $valor, $datos);
         echo $respuesta;
     }
     public function ajaxEliminarRoles()
@@ -209,9 +211,9 @@ class AjaxUsuarios
 
         $valor = $_POST['idRoldelete'];
 
-        $roles = ControladorUsuarios::ctrEliminarRol($valor);
+        $roles = ControladorRoles::ctrEliminarRol($valor);
         echo $roles;
-        $accesos = ControladorUsuarios::ctrEliminarAccesos($valor);
+        $accesos = ControladorRoles::ctrEliminarAccesos($valor);
     }
 
     public function ajaxNuevoLink()
@@ -221,7 +223,7 @@ class AjaxUsuarios
             $item = 'id_rol';
             $valor = $_POST['idrol'];
             $valor2 = $_POST['nuevolink'];
-            $respuestaAccesos = ControladorUsuarios::ctrMostrarAccesos($item, $valor,  $valor2);
+            $respuestaAccesos = ControladorRoles::ctrMostrarAccesos($item, $valor,  $valor2);
 
             if ($respuestaAccesos) {
                 echo  'ok';
@@ -231,7 +233,7 @@ class AjaxUsuarios
                     'nuevoacceso' => trim(strtoupper($_POST['nuevoacceso'])),
                     'nuevolink' => trim(strtolower($_POST['nuevolink']))
                 );
-                $respuesta = ControladorUsuarios::ctrCrearLinkAccesos($datos);
+                $respuesta = ControladorRoles::ctrCrearLinkAccesos($datos);
             }
         } else {
             echo 'error';
