@@ -134,6 +134,114 @@ class DataTables
     }
   }
 
+  public  function dtaGuiasTuristicos()
+  {
+
+    $action = (isset($_REQUEST['action']) && $_REQUEST['action'] != NULL) ? $_REQUEST['action'] : '';
+    if ($action == 'ajax') {
+      // escaping, additionally removing everything that could be (html/javascript-) code
+      $perfilUsuario = $_REQUEST['perfilOcultog'];
+      $search = $_GET['search'];
+      $selectnum = $_GET['selectnum'];
+      $activos = $_GET['activos'];
+      $aColumns = array('nombre', 'documento', 'ruc'); //Columnas de busqueda
+      $sTable = 'guias_turista';
+      $sWhere = "";
+
+      if (isset($_GET['activos']) &&  $activos == 'n') {
+        $sWhere = "WHERE (";
+        for ($i = 0; $i < count($aColumns); $i++) {
+          $sWhere .= "activo <> 's' AND " . $aColumns[$i] . " LIKE '%" . $search . "%' OR ";
+        }
+        $sWhere = substr_replace($sWhere, "", -3);
+        $sWhere .= ')';
+      } else {
+        if (isset($_GET['search'])) {
+          $sWhere = "WHERE (";
+          for ($i = 0; $i < count($aColumns); $i++) {
+            $sWhere .= "activo <> 'n' AND " . $aColumns[$i] . " LIKE '%" . $search . "%' OR ";
+          }
+          $sWhere = substr_replace($sWhere, "", -3);
+          $sWhere .= ')';
+        }
+      }
+
+
+      //pagination variables
+      $page = (isset($_REQUEST['page']) && !empty($_REQUEST['page'])) ? $_REQUEST['page'] : 1;
+      include_once 'pagination.php';
+      //include pagination file
+      $per_page = $selectnum; //how much records you want to show
+      $adjacents  = 4; //gap between pages after number of adjacents
+      $offset = ($page - 1) * $per_page;
+
+      //Count the total number of row in your table*/
+      $pdo =  Conexion::conectar();
+      $totalRegistros   = $pdo->query("SELECT count(*) AS numrows FROM $sTable  $sWhere");
+      $totalRegistros = $totalRegistros->fetch()['numrows'];
+      if ($per_page == 0) {
+        $per_page = 1;
+      }
+      $tpages = ceil($totalRegistros / $per_page);
+      $reload = './index.php';
+      //main query to fetch the data
+      $pdo =  Conexion::conectar();
+      $registros = $pdo->prepare("SELECT * FROM  $sTable $sWhere LIMIT $offset,$per_page");
+      $registros->execute();
+
+      $registros = $registros->fetchall();
+
+
+      foreach ($registros as $key => $value) :
+        if ($value['ruc'] != '') {
+          $nombreRazon = $value['razon_social'];
+          $rucdni = $value['ruc'];
+        } else {
+          $nombreRazon = $value['nombre'];
+          $rucdni = $value['documento'];
+        }
+
+        echo  "<tr class='contenedorcli-o" . $value['id'] .  "'>
+               <td> " . (++$key) . "</td>
+               <td>" . $nombreRazon . "</td>
+               <td>" . $rucdni . "</td>
+               <td> " . $value['email'] . "</td>
+               <td> " . $value['telefono'] . "</td>
+               <td> " . $value['direccion'] . "</td>
+               <td> " . date_format(date_create($value['fecha']), 'd/m/Y H:i:s') . "</td>
+                         <td>
+                 <div class='btn-group'>
+
+               <button class='btn btn-warning btnEditarGuiaTuristico'  idGuiaTuristico=" . $value['id'] . "  data-toggle='modal' data-target='#modalEditarGuiaTuristico'><i class='fas fa-user-edit'></i></button>";
+
+        if ($perfilUsuario == 'Administrador') {
+
+          echo "<button class='btn btn-danger btnEliminarGuiaTuristico' idGuiaTuristico=" . $value['id'] . "><i class='fas fa-trash-alt'></i></button>";
+        }
+
+        echo "</div> 
+        
+               </td>";
+
+        echo '<td > ';
+        if ($value['activo'] == 's') {
+          echo '<button class="btn-desactivar-gui activarpro" idguiaturistico="' . $value["id"] . '" activar="n" id="idp' . $value["id"] . '">Activo</button>';
+        } else {
+          echo ' <button class="btn-desactivar-gui desactivarpro" idguiaturistico="' . $value["id"] . '" activar="s" id="idp' . $value["id"] . '">Inactivo</button>';
+        };
+
+        echo '</td> 
+             </tr>';
+
+      endforeach;
+      $paginador = new Paginacion();
+      $paginador = $paginador->paginarGuiasTuristicos($reload, $page, $tpages, $adjacents);
+      echo "<tr>
+              <td colspan='10' style='text-align:center;'>" . $paginador . "</td>
+             </tr>";
+    }
+  }
+
 
   // DATA_TABLE LISTAR PRODUCTOS
   public  function dtaProductos()
@@ -1407,6 +1515,13 @@ if (isset($_REQUEST['dc'])) {
   if ($_REQUEST['dc'] == "dc") {
     $dataClientes = new DataTables();
     $dataClientes->dtaClientes();
+  }
+}
+
+if (isset($_REQUEST['dgt'])) {
+  if ($_REQUEST['dgt'] == "dgt") {
+    $dataClientes = new DataTables();
+    $dataClientes->dtaGuiasTuristicos();
   }
 }
 if (isset($_REQUEST['dp'])) {
