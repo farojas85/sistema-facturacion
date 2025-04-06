@@ -30,6 +30,7 @@ class ModeloProductos
         $stmt->close();
         $stmt = null;
     }
+
     public static function mdlMostrarProductos($tabla, $item, $valor, $idsucursal)
     {
         if ($idsucursal != '') {
@@ -53,6 +54,7 @@ class ModeloProductos
         $stmt->close();
         $stmt = null;
     }
+
     public static function mdlMostrarProductosMultiAlmacen($tabla, $item, $valor)
     {
 
@@ -158,7 +160,10 @@ class ModeloProductos
         $item = null;
         $valor = null;
         $respuesta = ControladorSucursal::ctrSucursalPrincipal($item, $valor);
-        $stmt = Conexion::conectar()->prepare("INSERT INTO $tabla(id_categoria, id_sucursal, codigo, serie, descripcion, imagen, stock, tipo_precio, valor_unitario, precio_pormayor,  precio_unitario, precio_compra, igv, codigoafectacion, codunidad) VALUES (:id_categoria, :id_sucursal, :codigo, :serie, :descripcion, :imagen, :stock, :tipo_precio, :valor_unitario, :precio_pormayor,  :precio_unitario, :precio_compra, :igv,  :codigoafectacion, :codunidad)");
+        $stmt = Conexion::conectar()->prepare(
+            "INSERT INTO $tabla(id_categoria, id_sucursal, codigo, serie, descripcion, imagen, stock, tipo_precio, valor_unitario, precio_pormayor,  precio_unitario, precio_compra, igv, codigoafectacion, codunidad, comision) 
+            VALUES (:id_categoria, :id_sucursal, :codigo, :serie, :descripcion, :imagen, :stock, :tipo_precio, :valor_unitario, :precio_pormayor,  :precio_unitario, :precio_compra, :igv,  :codigoafectacion, :codunidad, :comision)"
+        );
 
         if (isset($datos['id_sucursal']) && $datos['id_sucursal']  != 'todos') {
             $stmt->bindParam(":id_categoria", $datos['id_categoria'], PDO::PARAM_INT);
@@ -176,6 +181,7 @@ class ModeloProductos
             $stmt->bindParam(":igv", $datos['igv'], PDO::PARAM_STR);
             $stmt->bindParam(":codigoafectacion", $datos['codigoafectacion'], PDO::PARAM_STR);
             $stmt->bindParam(":codunidad", $datos['unidad'], PDO::PARAM_STR);
+            $stmt->bindParam(":comision", $datos['comision'], PDO::PARAM_STR);
 
             if ($stmt->execute()) {
                 return   'ok';

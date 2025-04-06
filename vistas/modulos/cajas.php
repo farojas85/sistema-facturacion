@@ -219,8 +219,8 @@ use Controladores\ControladorUsuarios;
 
         <div class="modal-content">
 
-            <form role="form" id="formEditarCaja">
-                <input type="hidden" name="idCajae" id="idCajae">
+            <form role="form" id="formAsignarUsuario">
+                <input type="hidden" name="idCajaa" id="idCajaa">
                 <!--=====================================
                 CABEZA DEL MODAL
                 ======================================-->
@@ -251,17 +251,24 @@ use Controladores\ControladorUsuarios;
                                             <?php
                                             $usuarios = ControladorUsuarios::ctrMostrarUsuarios(null, null);
                                             ?>
-                                            <select class="form-control">
+                                            <select class="form-control" id="usuarioCaja" name="usuarioCaja">
 
                                                 <option value="">-Seleccionar Usuario-</option>
                                                 <?php
                                                 foreach ($usuarios as $clave => $valor) {
-                                                    echo '<option value="' . $valor['id'] . '">' . $valor['nombre'] . '</option>';
+                                                    if ($valor['perfil'] != 'Administrador') {
+                                                        echo '<option value="' . $valor['id'] . '">' . $valor['usuario'] . " (" . $valor['nombre'] . ")" . '</option>';
+                                                    }
                                                 }
                                                 ?>
                                             </select>
 
                                         </div>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <button class="btn btn-primary btn-agm" id="btnAisgnarUsuario||| ">
+                                            Añadir <i class="fas fa-user-plus"></i>
+                                        </button>
                                     </div>
                                 </div>
                             </div>
@@ -273,10 +280,14 @@ use Controladores\ControladorUsuarios;
                                                 <tr>
                                                     <th>#</th>
                                                     <th>Usuario</th>
+                                                    <th></th>
                                                 </tr>
                                             </thead>
-                                            <tbody>
-                                                <tr></tr>
+                                            <tbody id="table-caja-usuario">
+                                                <tr>
+                                                    <td colspan="3" class="text-center text-danger">-Datos no
+                                                        registrados-</td>
+                                                </tr>
                                             </tbody>
                                         </table>
                                     </div>
@@ -320,10 +331,6 @@ use Controladores\ControladorUsuarios;
 
                     <button type="button" class="btn btn-danger pull-left" data-dismiss="modal"><i
                             class="far fa-times-circle fa-lg"></i> Salir</button>
-
-                    <button class="btn btn-primary btn-agm" id="editarCaja">Modificar <i
-                            class="fas fa-cash-register"></i></button>
-
                 </div>
 
 

@@ -328,6 +328,14 @@ $roles = ControladorRoles::ctrMostrarRoles($item, $valor);
                                             class="custom-control-input" id="pos33" name="accesoroles[]"
                                             value="cuentas-bancarias">
                                         CUENTAS BANCARIAS</label>
+                                    <label class="custom-control-label" for="pos34"><input type="checkbox"
+                                            class="custom-control-input" id="pos34" name="accesoroles[]"
+                                            value="agencias">
+                                        AGENCIAS</label>
+                                    <label class="custom-control-label" for="pos35"><input type="checkbox"
+                                            class="custom-control-input" id="pos35" name="accesoroles[]"
+                                            value="guias-turisticos">
+                                        GUÍAS TURISTICOS</label>
                                 </div>
 
 

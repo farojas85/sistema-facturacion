@@ -93,6 +93,27 @@ $(document).on("click", ".btnEditarCaja", function (e) {
   });
 });
 
+$(document).on("click", ".btnAsignarUsuario", function (e) {
+  e.preventDefault();
+  let idCaja = $(this).attr("idCaja");
+  let datos = { idCaja: idCaja };
+  $.ajax({
+    method: "POST",
+    url: "ajax/caja.ajax.php",
+    data: datos,
+    dataType: "json",
+    success: function (respuesta) {
+      if (respuesta) {
+        $("#idCajaa").val(respuesta["id"]);
+        $("#usuarioCaja").val("");
+        $("#editarnombre").val(respuesta["nombre"]);
+        $("#editarnumero").val(respuesta["numero_caja"]);
+        $("#cajaactiva").val(respuesta["activo"]);
+      }
+    },
+  });
+});
+
 //=================================================================================
 //ARQUEO DE CAJAS===================================================
 $(document).on("click", "#guardarAperturaCaja", function (e) {

@@ -400,11 +400,12 @@ class DataTables
                
         <label>Tipo IGV</label>';
         $item = 'codigo';
-        $valor = $value['codigoafectacion'];
+        $valor = 20;
         $afectacionT = ControladorSunat::ctrMostrarTipoAfectacion($item, $valor);
-
-        echo '<select class="tipo_afectacion' . $value["id"] . ' pre-css" id="tipoAfectacion" idProducto="' . $value["id"] . '" tpa="' . $value['codigoafectacion'] . '">
-        <option value="' . $afectacionT['codigo'] . '">' . $afectacionT['descripcion'] . '</option>';
+        if ($afectacionT) {
+          echo '<select class="tipo_afectacion' . $value["id"] . ' pre-css" id="tipoAfectacion" idProducto="' . $value["id"] . '" tpa="' . $value['codigoafectacion'] . '">
+          <option value="' . $afectacionT['codigo'] . '">' . $afectacionT['descripcion'] . '</option>';
+        }
         $item = null;
         $valor = null;
         $tipoAfectacion = ControladorSunat::ctrMostrarTipoAfectacion($item, $valor);

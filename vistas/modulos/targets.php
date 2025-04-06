@@ -65,83 +65,95 @@ $totalneto = number_format($totalneto, 2);
 ?>
 <div class="contenedor-widget" style="margin-top:15px;">
 
-  <div class="col-md-3 col-sm-6 col-xs-12">
+    <div class="col-md-3 col-sm-6 col-xs-12">
 
-    <div class="info-box">
-      <span class="info-box-icon bg-fa"><i class="fass fas-money-bill"></i></span>
+        <div class="info-box">
+            <span class="info-box-icon bg-fa"><i class="fass fas-money-bill"></i></span>
 
-      <div class="info-box-content">
-        <span class="info-box-text">FACTURAS</span>
-        <span class="info-box-number t-f"><?php echo $totalf ?></span>
-      </div>
-      <!-- /.info-box-content -->
+            <div class="info-box-content">
+                <span class="info-box-text">FACTURAS</span>
+                <span class="info-box-number t-f"><?php echo $totalf ?></span>
+            </div>
+            <!-- /.info-box-content -->
+        </div>
+        <!-- /.info-box -->
     </div>
-    <!-- /.info-box -->
-  </div>
-  <!-- /.col -->
-  <div class="col-md-3 col-sm-6 col-xs-12">
-    <div class="info-box">
-      <span class="info-box-icon bg-bo"><i class="fass fas-money-bill"></i></span>
+    <!-- /.col -->
+    <div class="col-md-3 col-sm-6 col-xs-12">
+        <div class="info-box">
+            <span class="info-box-icon bg-bo"><i class="fass fas-money-bill"></i></span>
 
-      <div class="info-box-content">
-        <span class="info-box-text">BOLETAS</span>
-        <span class="info-box-number t-b"><?php echo $totalb ?></span>
-      </div>
-      <!-- /.info-box-content -->
+            <div class="info-box-content">
+                <span class="info-box-text">BOLETAS</span>
+                <span class="info-box-number t-b"><?php echo $totalb ?></span>
+            </div>
+            <!-- /.info-box-content -->
+        </div>
+        <!-- /.info-box -->
     </div>
-    <!-- /.info-box -->
-  </div>
-  <!-- /.col -->
-  <div class="col-md-3 col-sm-6 col-xs-12">
-    <div class="info-box">
-      <span class="info-box-icon bg-nv"><i class="fass fas-money-bill"></i></span>
+    <!-- /.col -->
+    <div class="col-md-3 col-sm-6 col-xs-12">
+        <div class="info-box">
+            <span class="info-box-icon bg-nv"><i class="fass fas-money-bill"></i></span>
 
-      <div class="info-box-content">
-        <span class="info-box-text">NOTAS DE VENTA</span>
-        <span class="info-box-number t-nv"><?php echo $totalnv ?></span>
-      </div>
-      <!-- /.info-box-content -->
+            <div class="info-box-content">
+                <span class="info-box-text">NOTAS DE VENTA</span>
+                <span class="info-box-number t-nv"><?php echo $totalnv ?></span>
+            </div>
+            <!-- /.info-box-content -->
+        </div>
+        <!-- /.info-box -->
     </div>
-    <!-- /.info-box -->
-  </div>
-  <!-- /.col -->
-  <div class="col-md-3 col-sm-6 col-xs-12">
-    <div class="info-box">
-      <span class="info-box-icon bg-nc"><i class="fass fas-money-bill"></i></span>
+    <!-- /.col -->
+    <div class="col-md-3 col-sm-6 col-xs-12">
+        <div class="info-box">
+            <span class="info-box-icon bg-nc"><i class="fass fas-money-bill"></i></span>
 
-      <div class="info-box-content">
-        <span class="info-box-text">NOTAS DE CRÉDITO</span>
-        <span class="info-box-number t-nc"><?php echo $totalnc ?></span>
-      </div>
-      <!-- /.info-box-content -->
+            <div class="info-box-content">
+                <span class="info-box-text">NOTAS DE CRÉDITO</span>
+                <span class="info-box-number t-nc"><?php echo $totalnc ?></span>
+            </div>
+            <!-- /.info-box-content -->
+        </div>
+        <!-- /.info-box -->
     </div>
-    <!-- /.info-box -->
-  </div>
-  <!-- /.col -->
-  <div class="col-md-3 col-sm-6 col-xs-12">
-    <div class="info-box">
-      <span class="info-box-icon bg-nd"><i class="fass fas-money-bill"></i></span>
+    <!-- /.col -->
+    <div class="col-md-3 col-sm-6 col-xs-12">
+        <div class="info-box">
+            <span class="info-box-icon bg-nd"><i class="fass fas-money-bill"></i></span>
 
-      <div class="info-box-content">
-        <span class="info-box-text">NOTAS DE DÉBITO</span>
-        <span class="info-box-number t-nd"><?php echo $totalnd ?></span>
-      </div>
-      <!-- /.info-box-content -->
+            <div class="info-box-content">
+                <span class="info-box-text">NOTAS DE DÉBITO</span>
+                <span class="info-box-number t-nd"><?php echo $totalnd ?></span>
+            </div>
+            <!-- /.info-box-content -->
+        </div>
+        <!-- /.info-box -->
     </div>
-    <!-- /.info-box -->
-  </div>
-  <!-- /.col -->
-  <div class="col-md-3 col-sm-6 col-xs-12">
-    <div class="info-box">
-      <span class="info-box-icon bg-tn"><i class="fass fas-money-bill"></i></span>
+    <div class="col-md-3 col-sm-6 col-xs-12">
+        <div class="info-box">
+            <span class="info-box-icon bg-nd"><i class="fass fas-money-bill"></i></span>
 
-      <div class="info-box-content">
-        <span class="info-box-text">TOTAL NETO</span>
-        <span class="info-box-number t-neto"><?php echo $totalneto ?></span>
-      </div>
-      <!-- /.info-box-content -->
+            <div class="info-box-content">
+                <span class="info-box-text">TOTAL COMISIONES</span>
+                <span class="info-box-number t-nd"><?php echo $totalnd ?></span>
+            </div>
+            <!-- /.info-box-content -->
+        </div>
+        <!-- /.info-box -->
     </div>
-    <!-- /.info-box -->
-  </div>
+    <!-- /.col -->
+    <div class="col-md-3 col-sm-6 col-xs-12">
+        <div class="info-box">
+            <span class="info-box-icon bg-tn"><i class="fass fas-money-bill"></i></span>
+
+            <div class="info-box-content">
+                <span class="info-box-text">TOTAL NETO</span>
+                <span class="info-box-number t-neto"><?php echo $totalneto ?></span>
+            </div>
+            <!-- /.info-box-content -->
+        </div>
+        <!-- /.info-box -->
+    </div>
 
 </div>

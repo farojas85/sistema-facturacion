@@ -274,6 +274,36 @@ $accesos = ControladorRoles::ctrMostrarAccesosid('id_rol', $roles['id']);
             </li>
             <?php } ?>
             <?php
+            if (verificarAccesoActivo($accesos, ['AGENCIAS', 'GUIAS TURISTICOS'])) {
+            ?>
+            <li class="treeview">
+                <a href="#">
+                    <i class="fas fa-comments-dollar fa-lg"></i>
+                    <span class="mg-menu">Gestión Comisión</span>
+                    <span class="pull-right-container">
+                        <i class="fa fa-angle-left pull-right"></i>
+                    </span>
+                </a>
+                <ul class="treeview-menu">
+                    <?php
+                        if (verificarAccesoActivo($accesos, ['AGENCIAS'])) {
+                        ?>
+                    <li><a href="agencias"><i class="fa fa-cash-register"></i> Agencia</a></li>
+                    <?php } ?>
+                    <?php
+                        if (verificarAccesoActivo($accesos, ['GUIAS TURISTICOS'])) {
+
+                        ?>
+                    <li>
+                        <a href="guias-turisticos">
+                            <i class="fas fa-people-arrows"></i> Guías Turísticos
+                        </a>
+                    </li>
+                    <?php } ?>
+                </ul>
+            </li>
+            <?php } ?>
+            <?php
             if (verificarAccesoActivo($accesos, ['INVENTARIO', 'KARDEX', 'CATEGORIAS', 'PRODUCTOS'])) {
             ?>
             <li class="treeview">

@@ -285,6 +285,7 @@ $tiem = time();
     <script src="vistas/js/pos.js"></script>
     <script src="vistas/js/sucursal.js"></script>
     <script src="vistas/js/bancos.js"></script>
+    <script src="vistas/js/agencias.js"></script>
 
     <script>
     document.addEventListener("DOMContentLoaded", function() {
