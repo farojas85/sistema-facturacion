@@ -27,22 +27,22 @@ class ModeloVentas
         $stmt->close();
         $stmt = null;
     }
-        // MOSTRAR VENTAS
+    // MOSTRAR VENTAS
     public static function mdlMostrarVentasNoEnviadas($tabla, $item, $valor, $fecha_emision)
     {
-        
+
         if ($item == null) {
 
             $stmt = Conexion::conectar()->prepare("SELECT * FROM $tabla WHERE fecha_emision = :fecha_emision AND (tipocomp = '01' || tipocomp='03') AND (feestado = '' || feestado = '3')");
             $stmt->bindParam(":fecha_emision", $fecha_emision, PDO::PARAM_STR);
             $stmt->execute();
             return $stmt->fetchAll();
-        
-        $stmt->close();
-        $stmt = null;
+
+            $stmt->close();
+            $stmt = null;
+        }
     }
-}
-     // MOSTRAR VENTAS
+    // MOSTRAR VENTAS
     public static function mdlMostrarVentasCredito($tabla, $item, $valor)
     {
         if ($item != null) {
@@ -274,7 +274,7 @@ class ModeloVentas
         return $stmt->fetchall();
     }
 
-    
+
     // LISTAR VENTAS  OTRO MÉTODO
     public static function mdlListarVentas()
     {
@@ -312,14 +312,34 @@ class ModeloVentas
     }
 
 
-public static function mdlActualizarVentaAceptadaSunat($idComprobante)
+    public static function mdlActualizarVentaAceptadaSunat($idComprobante)
     {
 
         $stmt = Conexion::conectar()->prepare("UPDATE venta SET  feestado=1 WHERE id=:id");
         $stmt->bindParam(":id", $idComprobante, PDO::PARAM_INT);
-        
+
 
         $stmt->execute();
         $stmt = null;
+    }
+
+    public static function mdlValidarAgenciaGuiasById(string $tabla, int $dato)
+    {
+        $stmt = Conexion::conectar()->prepare(
+            "SELECT COUNT(venta.agencia_guia_id) as total 
+         FROM $tabla 
+         WHERE agencia_guia_id = :agencia_guia_id"
+        );
+
+        $stmt->bindParam(":agencia_guia_id", $dato, PDO::PARAM_STR);
+
+        $stmt->execute();
+        $resultado = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        // Cerrar la conexión
+        $stmt->closeCursor();
+        $stmt = null;
+
+        return $resultado ? (int)$resultado['total'] : 0;
     }
 }

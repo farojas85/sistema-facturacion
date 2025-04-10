@@ -3,6 +3,7 @@
 namespace Controladores;
 
 use Modelos\ModeloAgencias;
+use Modelos\ModeloVentas;
 
 class ControladorAgencias
 {
@@ -110,7 +111,6 @@ class ControladorAgencias
         }
     }
 
-
     // MOSTRAR, LISTAR CATEGORÍAS
     public static function ctrMostrarAgenciaGuias($item, $valor)
     {
@@ -119,7 +119,36 @@ class ControladorAgencias
         return $respuesta;
     }
 
+    // MOSTRAR, LISTAR AGENCIAS
+    public static function ctrMostrarAgenciaGuiasById($item, $valor)
+    {
+        $tabla = "agencia_guia";
+        $respuesta = ModeloAgencias::mdlMostrarAgenciaGuiasById($tabla, $item, $valor);
+        return $respuesta;
+    }
 
+    public static function ctrAgregarAgenciGuia($datosPost)
+    {
+
+        $datos = array(
+            "agencia_id" => $datosPost['idAgenciaAsignar'],
+            "guia_turismo_id" => $datosPost['guiaAgencia'],
+            "estado" => 1
+        );
+        $validar = ModeloAgencias::mdlValidarAgenciaGuiasById('agencia_guia', $datos);
+
+        if ($validar == 0) {
+            $tabla = "agencia_guia";
+            $respuesta = ModeloAgencias::mdlAgregarGuiaAgencia($tabla, $datos);
+
+            if ($respuesta == "ok") {
+                echo 'success';
+            }
+        } else {
+            echo "found";
+        }
+        //return $respuesta;
+    }
 
     public static function ctrEliminarAgencia($datos)
     {
@@ -133,6 +162,25 @@ class ControladorAgencias
 
                 $tabla = 'agencia';
                 $respuesta = ModeloAgencias::mdlEliminarAgencia($tabla, $datos);
+                if ($respuesta == 'ok') {
+                    echo 'success';
+                }
+            } else {
+                echo 'error';
+            }
+        }
+    }
+
+    public static function ctrEliminarGuiaAgencia(int $datos)
+    {
+        if (isset($datos)) {
+            $tabla = 'venta';
+            $item = 'agencia_guia_id';
+            $valor = $datos;
+            $ventas = ModeloVentas::mdlValidarAgenciaGuiasById($tabla, $valor);
+            if ($ventas == 0) {
+                $tabla = 'agencia_guia';
+                $respuesta = ModeloAgencias::mdlEliminarAgencia($tabla, $valor);
                 if ($respuesta == 'ok') {
                     echo 'success';
                 }

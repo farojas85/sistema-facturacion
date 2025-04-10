@@ -118,7 +118,6 @@ $(document).on("click", ".btn-editar-cliente", function (e) {
   e.preventDefault();
   var activo = $("#active").attr("idP");
   let datos = $("#frmEditarClientes").serialize();
-  console.log(datos);
 
   $.ajax({
     url: "ajax/clientes.ajax.php",
@@ -269,11 +268,11 @@ $(document).on("click", ".btnEliminarCliente", function () {
             $(".contenedorcli-o" + idCliente).fadeOut(1500, function () {
               loadClientes(1);
             });
-          } else{
+          } else {
             Swal.fire({
               position: "top-end",
               icon: "error",
-              title: ""+respuesta,
+              title: "" + respuesta,
               showConfirmButton: false,
               timer: 5500,
             });
@@ -472,45 +471,44 @@ $("#tipoDoc").on("change", function () {
   });
 });
 window.addEventListener("load", function () {
- 
   let ruta = $("#ruta_comprobante").val();
 
-  if (ruta == "crear-boleta") { 
-    $("#tipoDoc").val(0)
+  if (ruta == "crear-boleta") {
+    $("#tipoDoc").val(0);
     let tipoDocu = $("#tipoDoc").val();
-  let datos = { numDocumento: "00000000" };
-  ////(numDocumento)
-  $.ajax({
-    method: "POST",
-    url: "ajax/clientes.ajax.php",
-    data: datos,
-    dataType: "json",
+    let datos = { numDocumento: "00000000" };
+    ////(numDocumento)
+    $.ajax({
+      method: "POST",
+      url: "ajax/clientes.ajax.php",
+      data: datos,
+      dataType: "json",
 
-    beforeSend: function () {
-      $("#reloadC").show(50).html("<img src='vistas/img/reload.svg'> ");
-      document.getElementById("reloadC").style.visibility = "visible";
-    },
-    success: function (respuesta) {
-      ////(respuesta)
-      $("#reloadC").hide();
-      if (respuesta != false) {
-        if (tipoDocu == 0) {
-          $("#razon_social").val(respuesta["nombre"]);
-          $("#docIdentidad").val(respuesta["documento"]);
-          $("#direccion").val(respuesta["direccion"]);
-          //$('#ubigeo').val(respuesta['ruc']);
-          $("#celular").val(respuesta["telefono"]);
-          $("#idCliente").val(respuesta["id"]);
-          document.getElementById("reloadC").style.visibility = "hidden";
-          // $("#reloadC").hide();
-          $("#searchpc").val("");
-          $("#searchpcPos").val("");
-          $("#searchpc").focus();
-          $("#searchpcPos").focus();
-        } 
-      }
-    },
-  });
+      beforeSend: function () {
+        $("#reloadC").show(50).html("<img src='vistas/img/reload.svg'> ");
+        document.getElementById("reloadC").style.visibility = "visible";
+      },
+      success: function (respuesta) {
+        ////(respuesta)
+        $("#reloadC").hide();
+        if (respuesta != false) {
+          if (tipoDocu == 0) {
+            $("#razon_social").val(respuesta["nombre"]);
+            $("#docIdentidad").val(respuesta["documento"]);
+            $("#direccion").val(respuesta["direccion"]);
+            //$('#ubigeo').val(respuesta['ruc']);
+            $("#celular").val(respuesta["telefono"]);
+            $("#idCliente").val(respuesta["id"]);
+            document.getElementById("reloadC").style.visibility = "hidden";
+            // $("#reloadC").hide();
+            $("#searchpc").val("");
+            $("#searchpcPos").val("");
+            $("#searchpc").focus();
+            $("#searchpcPos").focus();
+          }
+        }
+      },
+    });
   }
 });
 // BUSCAR CLIENTE PARA COMPROBANTE|

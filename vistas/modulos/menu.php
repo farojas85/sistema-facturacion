@@ -332,7 +332,7 @@ $accesos = ControladorRoles::ctrMostrarAccesosid('id_rol', $roles['id']);
                     <?php
                         if (verificarAccesoActivo($accesos, ['PRODUCTOS'])) {
                         ?>
-                    <li> <a href="productos"><i class="fab fa-usps"></i>Servicios</a></li>
+                    <li> <a href="productos"><i class="fab fa-usps"></i> Productos o Servicios</a></li>
                     <?php } ?>
                 </ul>
             </li>

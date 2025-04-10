@@ -109,4 +109,74 @@ class ModeloAgencias
         $stmt->close();
         $stmt = null;
     }
+
+    public static function mdlAgregarGuiaAgencia($tabla, $datos)
+    {
+        $stmt = Conexion::conectar()->prepare(
+            "INSERT INTO $tabla(agencia_id,guia_turismo_id,estado) 
+            VALUES (:agencia_id,:guia_turismo_id,:estado) "
+        );
+        $stmt->bindParam(":agencia_id", $datos['agencia_id'], PDO::PARAM_STR);
+        $stmt->bindParam(":guia_turismo_id", $datos['guia_turismo_id'], PDO::PARAM_STR);
+        $stmt->bindParam(":estado", $datos['estado'], PDO::PARAM_STR);
+
+
+        if ($stmt->execute()) {
+            return 'ok';
+        } else {
+            return 'error';
+        }
+        $stmt->close();
+        $stmt = null;
+    }
+
+    public static function mdlMostrarAgenciaGuiasById($tabla, $item, $valor)
+    {
+        if ($item != null) {
+
+            $stmt = Conexion::conectar()->prepare(
+                "SELECT 
+                    agencia_guia.id, agencia_guia.agencia_id,agencia_guia.guia_turismo_id,
+                    gt.documento,gt.nombre as guia,agencia_guia.estado
+                FROM $tabla  
+                INNER JOIN guias_turista as gt ON agencia_guia.guia_turismo_id = gt.id
+                WHERE $item = :$item ORDER BY agencia_guia.id DESC"
+            );
+            $stmt->bindParam(":" . $item, $valor, PDO::PARAM_STR);
+
+            $stmt->execute();
+            return $stmt->fetchAll();
+        } else {
+            return [];
+            // $stmt = Conexion::conectar()->prepare("SELECT * FROM $tabla  WHERE id_sucursal = $idsucursal");
+            // //$stmt->bindParam(":".$item, $valor, PDO::PARAM_STR);    
+            // $stmt->execute();
+            // return $stmt->fetchall();
+        }
+
+
+        $stmt->close();
+        $stmt = null;
+    }
+
+    public static function mdlValidarAgenciaGuiasById(string $tabla, array $datos)
+    {
+        $stmt = Conexion::conectar()->prepare(
+            "SELECT COUNT(agencia_guia.id) as cantidad_registros
+            FROM $tabla
+            WHERE guia_turismo_id=:guia_turismo_id"
+        );
+        //$stmt->bindParam(":agencia_id", $datos["agencia_id"], PDO::PARAM_STR);
+        $stmt->bindParam(":guia_turismo_id", $datos["guia_turismo_id"], PDO::PARAM_STR);
+
+        $stmt->execute();
+        $resultado = $stmt->fetch(PDO::FETCH_ASSOC);
+        // Cerrar la conexión
+        $stmt->closeCursor();
+        $stmt = null;
+
+        return $resultado ? (int)$resultado['cantidad_registros'] : 0;
+
+        //---------------------------------------------------------------------------
+    }
 }

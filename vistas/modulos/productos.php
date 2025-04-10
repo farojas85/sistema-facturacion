@@ -21,7 +21,7 @@ $sucursal = ControladorSucursal::ctrSucursal();
                 <div class="col-lg-12 col-xs-12" style="border:0px; margin:0px; padding:0px; border-radius:10px;">
 
                     <div class="col-md-3 hidden-sm hidden-xs">
-                        <button class=""><i class="fas fa-box-open"></i> Servicios</button>
+                        <button class=""><i class="fas fa-box-open"></i> Productos / Servicios</button>
                     </div>
                     <div class="col-lg-9 col-md-12 col-sm-12 btns-dash">
                         <a href="crear-factura" class="btn pull-right" style="margin-left:10px"><i
@@ -42,21 +42,21 @@ $sucursal = ControladorSucursal::ctrSucursal();
         <div class="box rounded">
 
             <div class="box-header ">
-                <h3 class="box-title">Administración de Servicios</h3>
+                <h3 class="box-title">Administración de Productos / Servicios</h3>
 
                 <?php
-        if ($sucursal['activo'] == 's') {
+                if ($sucursal['activo'] == 's') {
 
 
-        ?>
+                ?>
                 <button class="btn btn-success pull-right btn-radius nuevo-producto-s" data-toggle="modal"
                     data-target="#modalAgregarProducto"><i class="fas fa-plus-square"></i>Nuevo Servicio <i
                         class="fa fa-th"></i>
                 </button>
 
                 <?php
-        }
-        ?>
+                }
+                ?>
             </div>
             <!-- /.box-header -->
             <div class="box-body table-user">
@@ -80,25 +80,25 @@ $sucursal = ControladorSucursal::ctrSucursal();
              
             </select>                
                   <?php
-                  if ($_SESSION['perfil'] == 'Administrador') {
-                    echo '
+                    if ($_SESSION['perfil'] == 'Administrador') {
+                        echo '
                     <select class="form-control select2" name="selectSucursal" id="selectSucursal" style="margin-left: 14px;" onchange="loadProductos(1)">
                     <option value="">MOSTRAR EN TODOS LOS ALMACENES</option>';
-                    $item = null;
-                    $valor = null;
-                    $sucursal = ControladorSucursal::ctrMostrarSucursalTotal($item, $valor);
-                    foreach ($sucursal as $k => $v) {
-                      echo '<option value="' . $v['id'] . '">' . $v['nombre_sucursal'] . ' - Sede: ' . $v['direccion'] . '</option>';
-                    }
-                    echo '</select>';
-                  } else {
+                        $item = null;
+                        $valor = null;
+                        $sucursal = ControladorSucursal::ctrMostrarSucursalTotal($item, $valor);
+                        foreach ($sucursal as $k => $v) {
+                            echo '<option value="' . $v['id'] . '">' . $v['nombre_sucursal'] . ' - Sede: ' . $v['direccion'] . '</option>';
+                        }
+                        echo '</select>';
+                    } else {
 
-                    $sucursal = ControladorSucursal::ctrSucursal();
+                        $sucursal = ControladorSucursal::ctrSucursal();
 
-                    echo '
+                        echo '
                     <input type="hidden" id="selectSucursal" value="' . $sucursal['id'] . '">';
-                  }
-                  ?>
+                    }
+                    ?>
 
 
 
@@ -135,10 +135,10 @@ $sucursal = ControladorSucursal::ctrSucursal();
                     </thead>
                     <?php
 
-          $listaProductos = new ControladorProductos();
-          $listaProductos->ctrListarProductos();
+                    $listaProductos = new ControladorProductos();
+                    $listaProductos->ctrListarProductos();
 
-          ?>
+                    ?>
 
                 </table>
             </div>
@@ -201,24 +201,24 @@ $sucursal = ControladorSucursal::ctrSucursal();
                                             style="width: 100%">
 
                                             <?php
-                      if ($_SESSION['perfil'] == 'Administrador') {
-                        echo '<option value="">SELECCIONE UN ALMACEN</option>';
-                        $item = null;
-                        $valor = null;
-                        $sucursal = ControladorSucursal::ctrSucursalPrincipal($item, $valor);
-                        foreach ($sucursal as $k => $v) {
-                          echo '<option value="' . $v['id'] . '">' . $v['nombre_sucursal'] . ' - : ' . $v['direccion'] . '</option>';
-                        }
-                        // echo '<option value="todos">TODOS</option>';
-                      } else {
+                                            if ($_SESSION['perfil'] == 'Administrador') {
+                                                echo '<option value="">SELECCIONE UN ALMACEN</option>';
+                                                $item = null;
+                                                $valor = null;
+                                                $sucursal = ControladorSucursal::ctrSucursalPrincipal($item, $valor);
+                                                foreach ($sucursal as $k => $v) {
+                                                    echo '<option value="' . $v['id'] . '">' . $v['nombre_sucursal'] . ' - : ' . $v['direccion'] . '</option>';
+                                                }
+                                                // echo '<option value="todos">TODOS</option>';
+                                            } else {
 
-                        $sucursal = ControladorSucursal::ctrSucursal();
+                                                $sucursal = ControladorSucursal::ctrSucursal();
 
-                        echo '<option value="' . $sucursal['id'] . '">' . $sucursal['nombre_sucursal'] . ' - : ' . $sucursal['direccion'] . '</option>';
-                      }
+                                                echo '<option value="' . $sucursal['id'] . '">' . $sucursal['nombre_sucursal'] . ' - : ' . $sucursal['direccion'] . '</option>';
+                                            }
 
 
-                      ?>
+                                            ?>
 
 
 
@@ -237,15 +237,15 @@ $sucursal = ControladorSucursal::ctrSucursal();
 
                                             <option value="">Selecionar categoría</option>
                                             <?php
-                      $item = null;
-                      $valor = null;
-                      $categorias = ControladorCategorias::ctrMostrarCategorias($item, $valor);
-                      foreach ($categorias as $k => $value) :
+                                            $item = null;
+                                            $valor = null;
+                                            $categorias = ControladorCategorias::ctrMostrarCategorias($item, $valor);
+                                            foreach ($categorias as $k => $value) :
 
-                        echo '<option value="' . $value['id'] . '">' . $value['categoria'] . '</option>';
+                                                echo '<option value="' . $value['id'] . '">' . $value['categoria'] . '</option>';
 
-                      endforeach;
-                      ?>
+                                            endforeach;
+                                            ?>
 
 
                                         </select>
@@ -291,19 +291,19 @@ $sucursal = ControladorSucursal::ctrSucursal();
                                         <select class="form-control" name="tipo_afectacion" id="tipo_afectacion">
                                             <option value="">Selecionar Tipo Afectación</option>
                                             <?php
-                      $item = null;
-                      $valor = null;
-                      $unidad_medida = ControladorSunat::ctrMostrarTipoAfectacion($item, $valor);
-                      foreach ($unidad_medida as $k => $value) {
-                      ?>
+                                            $item = null;
+                                            $valor = null;
+                                            $unidad_medida = ControladorSunat::ctrMostrarTipoAfectacion($item, $valor);
+                                            foreach ($unidad_medida as $k => $value) {
+                                            ?>
 
                                             <option value="<?= $value['codigo'] ?>"
                                                 <?php if (intval($value['codigo']) === 20) { ?> selected <?php } ?>>
                                                 <?= $value['descripcion'] ?>
                                             </option>
                                             <?php
-                      }
-                      ?>
+                                            }
+                                            ?>
                                         </select>
 
 
@@ -318,22 +318,22 @@ $sucursal = ControladorSucursal::ctrSucursal();
                                         <select class="form-control" name="unidad" id="unidad">
                                             <option value="">Selecionar Unidad Medida</option>
                                             <?php
-                      $item = null;
-                      $valor = null;
-                      $unidad_medida = ControladorSunat::ctrMostrarUnidadMedida($item, $valor);
-                      foreach ($unidad_medida as $k => $value) {
+                                            $item = null;
+                                            $valor = null;
+                                            $unidad_medida = ControladorSunat::ctrMostrarUnidadMedida($item, $valor);
+                                            foreach ($unidad_medida as $k => $value) {
 
-                        if ($value['activo'] == 's') {
-                      ?>
+                                                if ($value['activo'] == 's') {
+                                            ?>
                                             <option value='<?= $value['codigo'] ?>'
                                                 <?= ($value['codigo'] == 'ZZ') ? 'selected' : '' ?>>
 
                                                 <?= $value['descripcion'] ?>
                                             </option>
                                             <?php
-                        }
-                      }
-                      ?>
+                                                }
+                                            }
+                                            ?>
                                         </select>
 
                                     </div>
@@ -497,10 +497,10 @@ $sucursal = ControladorSucursal::ctrSucursal();
 
                 <?php
 
-        // $crearProducto = new ControladorProductos();
-        // $crearProducto-> ctrCrearProducto();
+                // $crearProducto = new ControladorProductos();
+                // $crearProducto-> ctrCrearProducto();
 
-        ?>
+                ?>
 
             </form>
 
@@ -548,21 +548,21 @@ $sucursal = ControladorSucursal::ctrSucursal();
                                         <select class="form-control " name="editarCategoria" required>
                                             <option value="" id="editarCategoria"></option>
                                             <?php
-                      $item = null;
-                      $valor = null;
-                      $categorias = ControladorCategorias::ctrMostrarCategorias($item, $valor);
+                                            $item = null;
+                                            $valor = null;
+                                            $categorias = ControladorCategorias::ctrMostrarCategorias($item, $valor);
 
-                      foreach ($categorias as $k => $value) :
-
-
-                        echo '<option value="' . $value['id'] . '">' . $value['categoria'] . '</option>';
+                                            foreach ($categorias as $k => $value) :
 
 
+                                                echo '<option value="' . $value['id'] . '">' . $value['categoria'] . '</option>';
 
 
-                      endforeach;
 
-                      ?>
+
+                                            endforeach;
+
+                                            ?>
 
 
                                         </select>
@@ -598,15 +598,15 @@ $sucursal = ControladorSucursal::ctrSucursal();
                                         <select class="form-control" name="editarAfectacion" id="editarAfectacion">
 
                                             <?php
-                      $item = null;
-                      $valor = null;
-                      $unidad_medida = ControladorSunat::ctrMostrarTipoAfectacion($item, $valor);
-                      foreach ($unidad_medida as $k => $value) {
+                                            $item = null;
+                                            $valor = null;
+                                            $unidad_medida = ControladorSunat::ctrMostrarTipoAfectacion($item, $valor);
+                                            foreach ($unidad_medida as $k => $value) {
 
 
-                        echo "<option value='" . $value['codigo'] . "'>" . $value['descripcion'] . "</option>";
-                      }
-                      ?>
+                                                echo "<option value='" . $value['codigo'] . "'>" . $value['descripcion'] . "</option>";
+                                            }
+                                            ?>
                                         </select>
 
                                     </div>
@@ -619,17 +619,17 @@ $sucursal = ControladorSucursal::ctrSucursal();
                                         <select class="form-control" name="editarUnidadMedida" id="editarUnidadMedida">
 
                                             <?php
-                      $item = null;
-                      $valor = null;
-                      $unidad_medida = ControladorSunat::ctrMostrarUnidadMedida($item, $valor);
-                      foreach ($unidad_medida as $k => $value) {
+                                            $item = null;
+                                            $valor = null;
+                                            $unidad_medida = ControladorSunat::ctrMostrarUnidadMedida($item, $valor);
+                                            foreach ($unidad_medida as $k => $value) {
 
-                        if ($value['activo'] == 's') {
+                                                if ($value['activo'] == 's') {
 
-                          echo "<option value='" . $value['codigo'] . "'>" . $value['descripcion'] . "</option>";
-                        }
-                      }
-                      ?>
+                                                    echo "<option value='" . $value['codigo'] . "'>" . $value['descripcion'] . "</option>";
+                                                }
+                                            }
+                                            ?>
                                         </select>
 
                                     </div>
@@ -733,21 +733,21 @@ $sucursal = ControladorSucursal::ctrSucursal();
                                         <select class="form-control select2" name="editarSucursal" id="editarSucursal"
                                             style="width: 100%">
                                             <?php
-                      if ($_SESSION['perfil'] == 'Administrador') {
-                        // echo '<option value="">SELECCIONE UN ALMACEN</option>';
-                        $item = null;
-                        $valor = null;
-                        $sucursal = ControladorSucursal::ctrSucursalPrincipal($item, $valor);
-                        foreach ($sucursal as $k => $v) {
-                          echo '<option value="' . $v['id'] . '">' . $v['nombre_sucursal'] . ' - : ' . $v['direccion'] . '</option>';
-                        }
-                      } else {
+                                            if ($_SESSION['perfil'] == 'Administrador') {
+                                                // echo '<option value="">SELECCIONE UN ALMACEN</option>';
+                                                $item = null;
+                                                $valor = null;
+                                                $sucursal = ControladorSucursal::ctrSucursalPrincipal($item, $valor);
+                                                foreach ($sucursal as $k => $v) {
+                                                    echo '<option value="' . $v['id'] . '">' . $v['nombre_sucursal'] . ' - : ' . $v['direccion'] . '</option>';
+                                                }
+                                            } else {
 
-                        $sucursal = ControladorSucursal::ctrSucursal();
+                                                $sucursal = ControladorSucursal::ctrSucursal();
 
-                        echo '<option value="' . $sucursal['id'] . '">' . $sucursal['nombre_sucursal'] . ' - : ' . $sucursal['direccion'] . '</option>';
-                      }
-                      ?>
+                                                echo '<option value="' . $sucursal['id'] . '">' . $sucursal['nombre_sucursal'] . ' - : ' . $sucursal['direccion'] . '</option>';
+                                            }
+                                            ?>
 
 
 
@@ -792,10 +792,10 @@ $sucursal = ControladorSucursal::ctrSucursal();
 
                 <?php
 
-        $editarProducto = new ControladorProductos();
-        $editarProducto->ctrEditarProducto();
+                $editarProducto = new ControladorProductos();
+                $editarProducto->ctrEditarProducto();
 
-        ?>
+                ?>
 
             </form>
 
